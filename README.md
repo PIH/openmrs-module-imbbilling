@@ -1,2 +1,1 @@
-Billing Module
-================
+# openmrs-module-imbbilling
