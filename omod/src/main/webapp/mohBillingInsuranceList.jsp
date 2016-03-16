@@ -2,20 +2,20 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
-<openmrs:require privilege="View Current Insurances" otherwise="/login.htm" redirect="/module/@MODULE_ID@/insurance.list" />
+<openmrs:require privilege="View Current Insurances" otherwise="/login.htm" redirect="/module/mohbilling/insurance.list" />
 
-<h2><spring:message code="@MODULE_ID@.insurance.manage" /></h2>
+<h2><spring:message code="mohbilling.insurance.manage" /></h2>
 
 <openmrs:hasPrivilege privilege="Add Insurance">
-	<a href="insurance.form"><spring:message code="@MODULE_ID@.insurance.add" /></a>
+	<a href="insurance.form"><spring:message code="mohbilling.insurance.add" /></a>
 </openmrs:hasPrivilege> | 
 <openmrs:hasPrivilege privilege="Manage Third Party">
-	<a href="thirdParty.form"><spring:message code="@MODULE_ID@.billing.thirdParty" /></a>
+	<a href="thirdParty.form"><spring:message code="mohbilling.billing.thirdParty" /></a>
 </openmrs:hasPrivilege>
 
 <br/><br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.insurance.current" /></b>
+<b class="boxHeader"><spring:message code="mohbilling.insurance.current" /></b>
 <div class="box">
 	<table width="99%">
 		<tr>

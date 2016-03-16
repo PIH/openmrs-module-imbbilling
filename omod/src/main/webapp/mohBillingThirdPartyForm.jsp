@@ -22,18 +22,18 @@
 		});
 </script>
 
-<h2><spring:message code="@MODULE_ID@.billing.thirdParty"/></h2>
+<h2><spring:message code="mohbilling.billing.thirdParty"/></h2>
 
 <openmrs:hasPrivilege privilege="Add Insurance">
-	<a href="insurance.form"><spring:message code="@MODULE_ID@.insurance.add" /></a>
+	<a href="insurance.form"><spring:message code="mohbilling.insurance.add" /></a>
 </openmrs:hasPrivilege> | 
 <openmrs:hasPrivilege privilege="Manage Third Party">
-	<a href="thirdParty.form"><spring:message code="@MODULE_ID@.billing.thirdParty" /></a>
+	<a href="thirdParty.form"><spring:message code="mohbilling.billing.thirdParty" /></a>
 </openmrs:hasPrivilege>
 
 <br/><br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.create"/></b>
+<b class="boxHeader"><spring:message code="mohbilling.billing.thirdParty.create"/></b>
 		
 <div class="box">
 	<div>
@@ -42,8 +42,8 @@
 				<input type="hidden" name="thirdPartyId" value="${thirdPartyId}"/>
 				<table>
 					<tr>
-						<td class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.name"/></td>
-						<td class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.rate"/></td>
+						<td class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.name"/></td>
+						<td class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.rate"/></td>
 						<td class="columnHeader"></td>
 					</tr>
 					<tr>
@@ -58,7 +58,7 @@
 </div>
 
 <br/>
-<b class="boxHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.list"/></b>
+<b class="boxHeader"><spring:message code="mohbilling.billing.thirdParty.list"/></b>
 		
 <!-- If no Third Parties don't display anything! -->
 <c:if test="${!empty thirdParties}">
@@ -67,10 +67,10 @@
 		<table width="99%">
 			<tr>
 				<th class="columnHeader">#</th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.name"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.rate"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.creator"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.createdDate"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.name"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.rate"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.creator"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.createdDate"/></th>
 				<th class="columnHeader"></th>
 			</tr>
 			

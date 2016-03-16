@@ -101,7 +101,7 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<h2><spring:message code="@MODULE_ID@.billing.refund"/></h2>
+<h2><spring:message code="mohbilling.billing.refund"/></h2>
 
 <%@ include file="templates/mohBillingInsurancePolicySummaryForm.jsp"%>
 

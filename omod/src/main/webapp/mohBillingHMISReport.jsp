@@ -4,17 +4,17 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<h2><spring:message code="@MODULE_ID@.billing.report"/></h2>
+<h2><spring:message code="mohbilling.billing.report"/></h2>
 
 <ul id="menu">
 		<li class="<c:if test='<%= request.getRequestURI().contains("Cohort")%>'> active</c:if>">
-			<a href="cohort.form"><spring:message code="@MODULE_ID@.billing.cohort"/></a>
+			<a href="cohort.form"><spring:message code="mohbilling.billing.cohort"/></a>
 		</li>
 	    <li>
-			<a href="received.form"><spring:message code="@MODULE_ID@.billing.received"/></a>
+			<a href="received.form"><spring:message code="mohbilling.billing.received"/></a>
 		</li>
 		 <li>
-			<a href="recettes.form"><spring:message code="@MODULE_ID@.billing.invoice"/></a>
+			<a href="recettes.form"><spring:message code="mohbilling.billing.invoice"/></a>
 		</li>
 		<li>
 			<a href="hmisReport.form">HMIS Reports</a>

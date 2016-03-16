@@ -7,9 +7,9 @@
 <openmrs:require privilege="View Facility service by insurance campanies" otherwise="/login.htm" redirect="/module/@MODULE_ID@/facilityServiceByInsuranceCompany.list" />
 
 
-<h2><spring:message code="@MODULE_ID@.facility.service.by.insurance" /></h2>
+<h2><spring:message code="mohbilling.facility.service.by.insurance" /></h2>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.facility.service" /></b>
+<b class="boxHeader"><spring:message code="mohbilling.facility.service" /></b>
 <div class="box">
 	<table width="100%">
 		<tr>
@@ -48,7 +48,7 @@
 </div>
 <br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.insurance.on.service" /></b>
+<b class="boxHeader"><spring:message code="mohbilling.insurance.on.service" /></b>
 <div class="box">
 	<table width="99%">
 		<tr>

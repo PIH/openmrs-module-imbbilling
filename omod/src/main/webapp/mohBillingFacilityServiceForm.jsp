@@ -9,7 +9,7 @@
 
 <h2>New Facility Service</h2>
 
-<a href="facilityService.list"><spring:message code="@MODULE_ID@.facility.service.current" /></a>
+<a href="facilityService.list"><spring:message code="mohbilling.facility.service.current" /></a>
 <br/><br/>
 
 <div class="box">

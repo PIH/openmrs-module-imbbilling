@@ -87,10 +87,10 @@
 
 <h2>
 	<c:if test="${null ne param.patientId}">
-		<spring:message code="@MODULE_ID@.insurance.policy.create" />
+		<spring:message code="mohbilling.insurance.policy.create" />
 	</c:if>
 	<c:if test="${null ne param.insurancePolicyId}">
-		<spring:message code="@MODULE_ID@.insurance.policy.edit" />
+		<spring:message code="mohbilling.insurance.policy.edit" />
 	</c:if>
 </h2>
 

@@ -16,12 +16,12 @@ var $k= jQuery.noConflict();
 	<li
 		class="<c:if test='<%= request.getRequestURI().contains("Cohort")%>'> active</c:if>">
 	<a href="cohort.form"><spring:message
-		code="@MODULE_ID@.billing.cohort" /></a></li>
+		code="mohbilling.billing.cohort" /></a></li>
 
 	<li
 		class="<c:if test='<%= request.getRequestURI().contains("Recovery")%>'> active</c:if>">
 	<a href="ReportRecovery.form"><spring:message
-		code="@MODULE_ID@.billing.recovery" /></a></li>
+		code="mohbilling.billing.recovery" /></a></li>
 </ul>
 <b class="boxHeader">Search Form(Advanced)</b>
 <div class="box">

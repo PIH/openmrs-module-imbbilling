@@ -3,14 +3,14 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<h2><spring:message code="@MODULE_ID@.billable.service.by.insurance" /></h2>
+<h2><spring:message code="mohbilling.billable.service.by.insurance" /></h2>
 
-<a href="billableService.form?insuranceId=${insurance.insuranceId}"><spring:message code="@MODULE_ID@.billable.service.add" /></a>
+<a href="billableService.form?insuranceId=${insurance.insuranceId}"><spring:message code="mohbilling.billable.service.add" /></a>
  |    <a href="billableService.list?insuranceId=${insurance.insuranceId}">Load Acts/Phcy</a> 
 
 <br/><br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.insurance.company.title" /></b>
+<b class="boxHeader"><spring:message code="mohbilling.insurance.company.title" /></b>
 <div class="box">
 	<table width="100%">
 		<tr>
@@ -29,7 +29,7 @@
 </div>
 <br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.billable.service" /></b>
+<b class="boxHeader"><spring:message code="mohbilling.billable.service" /></b>
 <div class="box">
 	<table width="99%">
 		<tr>

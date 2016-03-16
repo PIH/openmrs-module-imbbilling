@@ -24,15 +24,15 @@
 		});
 </script>
 
-<h2><spring:message code="@MODULE_ID@.billing.ManageRecovery"/></h2>
+<h2><spring:message code="mohbilling.billing.ManageRecovery"/></h2>
 
 <openmrs:hasPrivilege privilege="Manage Recovery">
-	<a href="manageRecovery.form"><spring:message code="@MODULE_ID@.billing.ManageRecovery" /></a>
+	<a href="manageRecovery.form"><spring:message code="mohbilling.billing.ManageRecovery" /></a>
 </openmrs:hasPrivilege>
 
 <br/><br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.recovery.list"/></b>
+<b class="boxHeader"><spring:message code="mohbilling.recovery.list"/></b>
 		
 <!-- If no Recovery History don't display anything! -->
 <c:if test="${!empty recoveryList}">
@@ -41,14 +41,14 @@
 		<table width="99%">
 			<tr>
 				<th class="columnHeader">#</th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.recovery.period"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.insurance"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.recovery.dueAmount"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.recovery.submission"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.recovery.paymentInfo"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.general.reasons"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.recovery.observation"/></th>
-				<th class="columnHeader"><spring:message code="@MODULE_ID@.general.status"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.recovery.period"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.insurance"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.recovery.dueAmount"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.recovery.submission"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.recovery.paymentInfo"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.general.reasons"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.recovery.observation"/></th>
+				<th class="columnHeader"><spring:message code="mohbilling.general.status"/></th>
 				<th class="columnHeader"></th>
 			</tr>
 			
@@ -58,11 +58,11 @@
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">
 						<table>
 							<tr>
-								<td><b><spring:message code="@MODULE_ID@.period.from"/></b></td>
+								<td><b><spring:message code="mohbilling.period.from"/></b></td>
 								<td><openmrs:formatDate date="${recovery.startPeriod}" type="string"/></td>
 							</tr>
 							<tr>
-								<td><b><spring:message code="@MODULE_ID@.period.to"/></b></td>
+								<td><b><spring:message code="mohbilling.period.to"/></b></td>
 								<td><openmrs:formatDate date="${recovery.endPeriod}" type="string"/></td>
 							</tr>
 						</table>
@@ -70,13 +70,13 @@
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">
 						<table>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.general.company"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.general.company"/></td>
 							</tr>
 							<tr>
 								<td>${recovery.insuranceId.name}</td>
 							</tr>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.billing.thirdParty.label"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.billing.thirdParty.label"/></td>
 							</tr>
 							<tr>
 								<td>${recovery.thirdParty.name}</td>
@@ -87,13 +87,13 @@
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">
 						<table>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.submissionDate"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.submissionDate"/></td>
 							</tr>
 							<tr>
 								<td><openmrs:formatDate date="${recovery.submissionDate}" type="string"/></td>
 							</tr>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.verificationDate"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.verificationDate"/></td>
 							</tr>
 							<tr>
 								<td><openmrs:formatDate date="${recovery.verificationDate}" type="string"/></td>
@@ -103,13 +103,13 @@
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">
 						<table>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.amountPaid"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.amountPaid"/></td>
 							</tr>
 							<tr>
 								<td>${recovery.paidAmount}</td>
 							</tr>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.paymentDate"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.paymentDate"/></td>
 							</tr>
 							<tr>
 								<td><openmrs:formatDate date="${recovery.paymentDate}" type="string"/></td>
@@ -119,13 +119,13 @@
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">
 						<table>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.partlyPay"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.partlyPay"/></td>
 							</tr>
 							<tr>
 								<td>${recovery.partlyPayReason}</td>
 							</tr>
 							<tr>
-								<td class="columnHeader"><spring:message code="@MODULE_ID@.recovery.noPayment"/></td>
+								<td class="columnHeader"><spring:message code="mohbilling.recovery.noPayment"/></td>
 							</tr>
 							<tr>
 								<td>${recovery.noPaymentReason}</td>

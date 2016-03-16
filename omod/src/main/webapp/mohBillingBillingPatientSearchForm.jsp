@@ -4,7 +4,7 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 <openmrs:require privilege="Check Patient Bill Payment" otherwise="/login.htm" redirect="/module/@MODULE_ID@/checkPatientBillPayment.form" />
-<h2><spring:message code="@MODULE_ID@.billing" /></h2>
+<h2><spring:message code="mohbilling.billing" /></h2>
 
 <div id="search_policy">
 	<mohbilling_tag:insurancePolicySearchByInsuranceCardNumber redirectUrl="billing.form" />

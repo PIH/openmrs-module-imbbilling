@@ -13,15 +13,15 @@
 	
 </script>
 
-<h2><spring:message code="@MODULE_ID@.billing.ManageRecovery"/></h2>
+<h2><spring:message code="mohbilling.billing.ManageRecovery"/></h2>
 
 <openmrs:hasPrivilege privilege="Manage Recovery">
-	<a href="recovery.list"><spring:message code="@MODULE_ID@.recovery.list" /></a>
+	<a href="recovery.list"><spring:message code="mohbilling.recovery.list" /></a>
 </openmrs:hasPrivilege>
 
 <br/><br/>
 
-<b class="boxHeader"><spring:message code="@MODULE_ID@.recovery.followup"/></b>
+<b class="boxHeader"><spring:message code="mohbilling.recovery.followup"/></b>
 <div class="box">
 	<form action="manageRecovery.form" method="post" name="followup_recovery_form" id="followup_recovery_form">
 
@@ -30,21 +30,21 @@
 	<div class="box" id="primary_info">
 		<table>
 			<tr>
-				<th><spring:message code="@MODULE_ID@.period.when"/></th>
-				<th><spring:message code="@MODULE_ID@.insurance"/></th>
-				<th><spring:message code="@MODULE_ID@.billing.thirdParty.label"/></th>
-				<th><spring:message code="@MODULE_ID@.recovery.dueAmount"/></th>
-				<th><spring:message code="@MODULE_ID@.recovery.status"/></th>
+				<th><spring:message code="mohbilling.period.when"/></th>
+				<th><spring:message code="mohbilling.insurance"/></th>
+				<th><spring:message code="mohbilling.billing.thirdParty.label"/></th>
+				<th><spring:message code="mohbilling.recovery.dueAmount"/></th>
+				<th><spring:message code="mohbilling.recovery.status"/></th>
 			</tr>
 			<tr>
 				<td>
 					<table>
 						<tr>
-							<td><spring:message code="@MODULE_ID@.period.after"/></td>
+							<td><spring:message code="mohbilling.period.after"/></td>
 							<td><input type="text" size="11" value="<openmrs:formatDate date="${recovery.startPeriod}" type="string"/>" name="startDate" onclick="showCalendar(this)" /></td>
 						</tr>
 						<tr>
-							<td><spring:message code="@MODULE_ID@.period.before"/></td>
+							<td><spring:message code="mohbilling.period.before"/></td>
 							<td><input type="text" size="11" value="<openmrs:formatDate date="${recovery.endPeriod}" type="string"/>" name="endDate" onclick="showCalendar(this)" /></td>
 						</tr>
 					</table>
@@ -87,12 +87,12 @@
 
 	<!-- This part is for the secondary information : Submission and Verification Dates (2nd Step!) -->
 	<!--  test="${empty recovery.submissionDate}" -->
-		<b class="boxHeader" id="submission_verification_title"><spring:message code="@MODULE_ID@.recovery.submission"/></b>
+		<b class="boxHeader" id="submission_verification_title"><spring:message code="mohbilling.recovery.submission"/></b>
 		<div class="box" id="submission_verification_part">
 			<div class="box" id="submission_part">
 				<table width="100%">
 					<tr>
-						<td><spring:message code="@MODULE_ID@.recovery.submissionDate"/></td>
+						<td><spring:message code="mohbilling.recovery.submissionDate"/></td>
 					</tr>
 					<tr>
 						<td><input type="text" size="11" value="<openmrs:formatDate date="${recovery.submissionDate}" type="string"/>" name="submissionDate" onclick="showCalendar(this)"/></td>
@@ -107,7 +107,7 @@
 				<div class="box" id="verification_part">
 					<table width="100%">
 						<tr>
-							<td><spring:message code="@MODULE_ID@.recovery.verificationDate"/></td>
+							<td><spring:message code="mohbilling.recovery.verificationDate"/></td>
 						</tr>
 						<tr>
 							<td><input type="text" size="11" value="<openmrs:formatDate date="${recovery.verificationDate}" type="string"/>" name="verificationDate" onclick="showCalendar(this)"/></td>
@@ -123,15 +123,15 @@
 	<!-- This part is for the payment information : the very last step... -->
 	<!-- "${empty recovery.paymentDate}" -->
 
-		<b class="boxHeader" id="payment_info_title"><spring:message code="@MODULE_ID@.recovery.paymentInfo"/></b>
+		<b class="boxHeader" id="payment_info_title"><spring:message code="mohbilling.recovery.paymentInfo"/></b>
 		<div class="box" id="payment_info_part">
 			<table width="100%">
 				<tr>
-					<th><spring:message code="@MODULE_ID@.recovery.amountPaid"/></th>
-					<th><spring:message code="@MODULE_ID@.recovery.paymentDate"/></th>
-					<th><spring:message code="@MODULE_ID@.recovery.partlyPayReason"/></th>
-					<th><spring:message code="@MODULE_ID@.recovery.noPaymentReason"/></th>
-					<th><spring:message code="@MODULE_ID@.recovery.observation"/></th>
+					<th><spring:message code="mohbilling.recovery.amountPaid"/></th>
+					<th><spring:message code="mohbilling.recovery.paymentDate"/></th>
+					<th><spring:message code="mohbilling.recovery.partlyPayReason"/></th>
+					<th><spring:message code="mohbilling.recovery.noPaymentReason"/></th>
+					<th><spring:message code="mohbilling.recovery.observation"/></th>
 				</tr>
 				<tr>
 					<td><input type="text" size="30" value="${recovery.paidAmount}" name="paidAmount"/></td>
@@ -147,7 +147,7 @@
 
 		<br/>
 
-		<input type="submit" name="recordInfo" value="<spring:message code='@MODULE_ID@.general.recordInfo'/>" />
+		<input type="submit" name="recordInfo" value="<spring:message code='mohbilling.general.recordInfo'/>" />
 
 	</form>
 </div>

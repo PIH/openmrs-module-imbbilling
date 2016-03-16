@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.openmrs.module</groupId>
-	<artifactId>imbbilling</artifactId>
+	<artifactId>mohbilling</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>IMB Billing Module</name>
@@ -26,7 +26,7 @@
         <openMRSVersion>1.9.9</openMRSVersion>
         <itextVersion>5.0.6</itextVersion>
         <MODULE_ID>${project.parent.artifactId}</MODULE_ID>
-        <MODULE_NAME>Reporting</MODULE_NAME>
+        <MODULE_NAME>IMB Billing Module</MODULE_NAME>
         <MODULE_VERSION>${project.parent.version}</MODULE_VERSION>
         <MODULE_PACKAGE>${project.parent.groupId}.${project.parent.artifactId}</MODULE_PACKAGE>
 	</properties>
@@ -100,7 +100,7 @@
                     <include>**/*.xml</include>
                     <include>**/*.properties</include>
                 </includes>
-            </resource>
+            </resource>           
         </resources>
         <testResources>
             <testResource>

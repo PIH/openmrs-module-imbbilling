@@ -4,32 +4,32 @@
 		</li>
 		<openmrs:hasPrivilege privilege="View Facility service">
 		<li class="<c:if test='<%= request.getRequestURI().contains("mohBillingFacilityService")%>'> active</c:if>">
-			<a href="facilityService.list"><spring:message code="@MODULE_ID@.facility.service.manage"/></a>
+			<a href="facilityService.list"><spring:message code="mohbilling.facility.service.manage"/></a>
 		</li>
 		</openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="View Current Insurances">
 		<li class="<c:if test='<%= request.getRequestURI().contains("mohBillingInsurance") && !request.getRequestURI().contains("mohBillingInsurancePolicy")%>'> active</c:if>">
-			<a href="insurance.list"><spring:message code="@MODULE_ID@.insurance.manage"/></a>
+			<a href="insurance.list"><spring:message code="mohbilling.insurance.manage"/></a>
 		</li>
 		</openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Search Insurance Policy"><li class="<c:if test='<%= request.getRequestURI().contains("mohBillingInsurancePolicy")%>'> active</c:if>">
-			<a href="insurancePolicySearch.form"><spring:message code="@MODULE_ID@.insurance.policy.manage"/></a>
+			<a href="insurancePolicySearch.form"><spring:message code="mohbilling.insurance.policy.manage"/></a>
 		</li>
 		</openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Manage Patient Bill Calculations">
 		<li class="<c:if test='<%= request.getRequestURI().contains("mohBillingBilling")%>'> active</c:if>">
-			<a href="patientSearchBill.form"><spring:message code="@MODULE_ID@.billing.manage"/></a>
+			<a href="patientSearchBill.form"><spring:message code="mohbilling.billing.manage"/></a>
 		</li></openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Check Patient Bill Payment">
 		<li class="<c:if test='<%= request.getRequestURI().contains("mohBillingCheck")%>'> active</c:if>">
-			<a href="checkPatientBillPayment.form"><spring:message code="@MODULE_ID@.billing.patient.bill.payment.check"/></a>
+			<a href="checkPatientBillPayment.form"><spring:message code="mohbilling.billing.patient.bill.payment.check"/></a>
 		</li></openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Manage Recovery"><li class="<c:if test='<%= request.getRequestURI().contains("eRecover")%>'> active</c:if>">
-			<a href="manageRecovery.form"><spring:message code="@MODULE_ID@.billing.ManageRecovery"/></a>
+			<a href="manageRecovery.form"><spring:message code="mohbilling.billing.ManageRecovery"/></a>
 		</li>
 		</openmrs:hasPrivilege>
 		<openmrs:hasPrivilege privilege="Manage Billing Reports"><li class="<c:if test='<%= request.getRequestURI().contains("Cohort")%>'> active</c:if>">
-			<a href="cohort.form"><spring:message code="@MODULE_ID@.billing.report"/></a>
+			<a href="cohort.form"><spring:message code="mohbilling.billing.report"/></a>
 		</li>	</openmrs:hasPrivilege>
 		
 </ul>
