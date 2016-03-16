@@ -3,7 +3,7 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<openmrs:require privilege="View Facility service" otherwise="/login.htm" redirect="/module/@MODULE_ID@/facilityService.list" />
+<openmrs:require privilege="View Facility service" otherwise="/login.htm" redirect="/module/mohbilling/facilityService.list" />
 
 <h2><spring:message code="mohbilling.facility.service.manage" /></h2>
 <openmrs:hasPrivilege privilege="Add Facility service">

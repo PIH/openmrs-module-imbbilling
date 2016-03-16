@@ -4,7 +4,7 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<openmrs:require privilege="Manage Recovery" otherwise="/login.htm" redirect="/module/@MODULE_ID@/manageRecovery.form" />
+<openmrs:require privilege="Manage Recovery" otherwise="/login.htm" redirect="/module/mohbilling/manageRecovery.form" />
 
 <script language="javascript" type="text/javascript">
 	var $bill = jQuery.noConflict();

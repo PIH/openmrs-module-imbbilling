@@ -1,7 +1,7 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery-1.3.2.js" />
-<openmrs:require privilege="Manage Third Party" otherwise="/login.htm" redirect="/module/@MODULE_ID@/thirdParty.form" />
+<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
+<openmrs:require privilege="Manage Third Party" otherwise="/login.htm" redirect="/module/mohbilling/thirdParty.form" />
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
@@ -13,7 +13,7 @@
 			var serv = "#deleteCtrl_"+servId
 			var hrefValue = "thirdParty.form?deleteThirdParty=true&deleteThirdPartyId=" + servId;
 			
-			if(confirm("<spring:message code='@MODULE_ID@.general.delete.confirm'/>"))
+			if(confirm("<spring:message code='mohbilling.general.delete.confirm'/>"))
 				$bill(serv).attr("href", hrefValue);
 		}
 
@@ -86,9 +86,9 @@
 					
 					<td class="rowValue ${status.count%2!=0?'even':''}">
 						<a href="thirdParty.form?editThirdParty=true&editThirdPartyId=${thirdParty.thirdPartyId}">
-							<spring:message code='@MODULE_ID@.general.edit'/>
+							<spring:message code='mohbilling.general.edit'/>
 						</a> | <a id="deleteCtrl_${thirdParty.thirdPartyId}" onclick="submitData(${thirdParty.thirdPartyId});" href="#">
-							<spring:message code='@MODULE_ID@.general.delete'/>
+							<spring:message code='mohbilling.general.delete'/>
 						</a>
 					</td>
 				</tr>

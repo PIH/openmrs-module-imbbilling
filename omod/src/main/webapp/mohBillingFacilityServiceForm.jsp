@@ -4,7 +4,7 @@
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<openmrs:require privilege="Add Facility service" otherwise="/login.htm" redirect="/module/@MODULE_ID@/facilityService.form" />
+<openmrs:require privilege="Add Facility service" otherwise="/login.htm" redirect="/module/mohbilling/facilityService.form" />
 
 
 <h2>New Facility Service</h2>

@@ -1,11 +1,11 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/@MODULE_ID@/scripts/jquery-1.3.2.js" />
-<openmrs:require privilege="Manage Third Party" otherwise="/login.htm" redirect="/module/@MODULE_ID@/thirdParty.form" />
+<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
+<openmrs:require privilege="Manage Third Party" otherwise="/login.htm" redirect="/module/mohbilling/thirdParty.form" />
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
-<openmrs:require privilege="Manage Recovery" otherwise="/login.htm" redirect="/module/@MODULE_ID@/recovery.list" />
+<openmrs:require privilege="Manage Recovery" otherwise="/login.htm" redirect="/module/mohbilling/recovery.list" />
 
 <script type="text/javascript">
 		var $bill = jQuery.noConflict();
@@ -15,7 +15,7 @@
 			var serv = "#deleteCtrl_"+servId
 			var hrefValue = "processRecovery.form?deleteRecovery=true&deleteRecoveryId=" + servId;
 			
-			if(confirm("<spring:message code='@MODULE_ID@.general.delete.confirm'/>"))
+			if(confirm("<spring:message code='mohbilling.general.delete.confirm'/>"))
 				$bill(serv).attr("href", hrefValue);
 		}
 
@@ -137,9 +137,9 @@
 					
 					<td class="rowValue ${status.count%2!=0?'even':''}">
 						<a href="processRecovery.form?editRecovery=true&editRecoveryId=${recovery.recoveryId}">
-							<spring:message code='@MODULE_ID@.general.edit'/>
+							<spring:message code='mohbilling.general.edit'/>
 						</a> | <a id="deleteCtrl_${recovery.recoveryId}" onclick="submitData(${recovery.recoveryId});" href="#">
-							<spring:message code='@MODULE_ID@.general.delete'/>
+							<spring:message code='mohbilling.general.delete'/>
 						</a>
 					</td>
 				</tr>

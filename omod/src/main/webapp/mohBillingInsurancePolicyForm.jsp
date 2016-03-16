@@ -2,10 +2,10 @@
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 <openmrs:htmlInclude
-	file="/moduleResources/@MODULE_ID@/scripts/jquery-1.3.2.js" />
+	file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
 <openmrs:require privilege="Create Insurance Policy"
 	otherwise="/login.htm"
-	redirect="/module/@MODULE_ID@/insurancePolicy.form" />
+	redirect="/module/mohbilling/insurancePolicy.form" />
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
 <style type="text/css">

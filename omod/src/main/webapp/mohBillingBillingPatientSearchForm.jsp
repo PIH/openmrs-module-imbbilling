@@ -3,7 +3,7 @@
 <%@ taglib prefix="mohbilling_tag" tagdir="/WEB-INF/tags/module/mohbilling" %>
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
-<openmrs:require privilege="Check Patient Bill Payment" otherwise="/login.htm" redirect="/module/@MODULE_ID@/checkPatientBillPayment.form" />
+<openmrs:require privilege="Check Patient Bill Payment" otherwise="/login.htm" redirect="/module/mohbilling/checkPatientBillPayment.form" />
 <h2><spring:message code="mohbilling.billing" /></h2>
 
 <div id="search_policy">

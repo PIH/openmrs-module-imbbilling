@@ -4,7 +4,7 @@
 <%@ taglib prefix="mohbilling_tag" tagdir="/WEB-INF/tags/module/mohbilling" %>
 
 <h2><spring:message code="mohbilling.insurance.policy.searchcreateedit" /></h2>
-<openmrs:require privilege="Search Insurance Policy" otherwise="/login.htm" redirect="/module/@MODULE_ID@/insurancePolicySearch.form" />
+<openmrs:require privilege="Search Insurance Policy" otherwise="/login.htm" redirect="/module/mohbilling/insurancePolicySearch.form" />
 
 <mohbilling_tag:insurancePolicySearchByInsuranceCardNumber redirectUrl="insurancePolicy.form" />
 
