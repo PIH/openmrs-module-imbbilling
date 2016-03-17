@@ -9,6 +9,14 @@
 .classpath
 .idea
 .project
-*/.settings/*
-*/target/*
-
+.settings/*
+api/.classpath
+api/.project
+api/.settings/*
+api/target/*
+omod/.classpath
+omod/.project
+omod/.settings/*
+omod/target/*
+test-1.9/target/*
+/.settings
