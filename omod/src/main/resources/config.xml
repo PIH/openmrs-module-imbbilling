@@ -146,6 +146,13 @@
 			This should be the categories in which tariff are provided at the high level (acts and pharmacy)
 		</description>
 	</globalProperty>
+	<globalProperty>
+		<property>billing.registrationEncounterType</property>
+		<defaultValue>11</defaultValue>
+		<description>
+			Must be the ID of the Encounter type used for registration.
+		</description>
+	</globalProperty>
 	
 	<!-- /Required Global Properties -->
 

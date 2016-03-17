@@ -78,7 +78,8 @@ public class EncounterServiceAdvice implements AfterReturningAdvice {
 					&& encounter.getEncounterId().intValue() != encounterId){
 				
 				InsurancePolicy card = null;
-				if(encounter.getEncounterType().equals(Context.getEncounterService().getEncounterType(11))){//TODO: This should be changed to GLOBAL PROPERTY instead...
+				int registrationEncounterTypeId = Integer.parseInt(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_REGISTRATION_ENCOUNTER_TYPE));
+				if(encounter.getEncounterType().equals(Context.getEncounterService().getEncounterType(registrationEncounterTypeId))){
 
 					// Putting some conditions:
 					boolean insuranceIsThere = false, insuranceNumberIsThere = false, 

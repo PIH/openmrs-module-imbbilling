@@ -26,6 +26,7 @@ public class BillingConstants {
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS = "billing.healthFacilityPhysicalAddress";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_SHORT_CODE = "billing.healthFacilityShortCode";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL = "billing.healthFacilityEmail";
+	public static final String GLOBAL_PROPERTY_REGISTRATION_ENCOUNTER_TYPE = "billing.registrationEncounterType";
 	// //TODO: the location code architecture is wrong -- all location codes
 	// come from module
 	// //TODO: this needs to correspond to a single default location
