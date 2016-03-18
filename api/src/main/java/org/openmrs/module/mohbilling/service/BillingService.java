@@ -3,12 +3,6 @@
  */
 package org.openmrs.module.mohbilling.service;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.User;
@@ -21,10 +15,14 @@ import org.openmrs.module.mohbilling.model.Insurance;
 import org.openmrs.module.mohbilling.model.InsurancePolicy;
 import org.openmrs.module.mohbilling.model.InsuranceRate;
 import org.openmrs.module.mohbilling.model.PatientBill;
-import org.openmrs.module.mohbilling.model.PatientServiceBill;
 import org.openmrs.module.mohbilling.model.Recovery;
 import org.openmrs.module.mohbilling.model.ServiceCategory;
 import org.openmrs.module.mohbilling.model.ThirdParty;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author Kamonyo
@@ -35,7 +33,7 @@ public interface BillingService {
 	/**
 	 * Gets the Patient Bill from the DB by specifying the Object/ID
 	 * 
-	 * @param bill
+	 * @param billId
 	 *            , the bill to be matched
 	 * @return patientBill, the bill that was matched by the entered object.
 	 *         Otherwise it returns Null Object
@@ -65,7 +63,7 @@ public interface BillingService {
 	/**
 	 * Gets the insurance from the DB by specifying the Object/ID
 	 * 
-	 * @param insurance
+	 * @param insuranceId
 	 *            , the insurance to be matched
 	 * @return insurance, the insurance that was matched by the entered object.
 	 *         Otherwise it returns Null Object
@@ -86,7 +84,7 @@ public interface BillingService {
 	/**
 	 * Gets Insurance Policy from the DB by specifying the Object/ID
 	 * 
-	 * @param card
+	 * @param insurancePolicyId
 	 *            , the insurance policy to be matched
 	 * @return card, the card that was matched by the entered object. Otherwise
 	 *         it returns Null Object
@@ -230,7 +228,7 @@ public interface BillingService {
 	/**
 	 * Gets a Third Party from the DB
 	 * 
-	 * @param id
+	 * @param thirdPartyId
 	 *            , The Third Party ID to be matched
 	 * @return the matched Third Party
 	 * 
@@ -371,7 +369,7 @@ public interface BillingService {
 	
 	/**
 	 * 
-	 * @param Gets billPayments by date and collector
+	 * Gets billPayments by date and collector
 	 * @param collector
 	 * @return
 	 */
@@ -379,7 +377,7 @@ public interface BillingService {
 	
 	/**
 	 * 
-	 * @param Gets service category by name
+	 * Gets service category by name
 	 * @param name
 	 * @return
 	 */
@@ -387,16 +385,11 @@ public interface BillingService {
 	
 	/**
 	 * gets a list of payments' dates
-	 * @param insurance
 	 * @param startDate
 	 * @param endDate
-	 * @param patientId
-	 * @param serviceName
-	 * @param billStatus
-	 * @param billCollector
 	 * @return List<Date>
 	 */
-	public List<Date> getRevenueDatesBetweenDates(Date startDate, Date endDate);;
+	public List<Date> getRevenueDatesBetweenDates(Date startDate, Date endDate);
 	
 	public Map<String,Double> getRevenueByService(Date receivedDate,String[] serviceCategory, String collector,Insurance insurance);
 	
