@@ -23,7 +23,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <openMRSVersion>1.9.9</openMRSVersion>
+        <openMRSVersion>1.6.6</openMRSVersion>
         <itextVersion>5.0.6</itextVersion>
         <MODULE_ID>${project.parent.artifactId}</MODULE_ID>
         <MODULE_NAME>IMB Billing Module</MODULE_NAME>

@@ -3,27 +3,19 @@
  */
 package org.openmrs.module.mohbilling.web.controller;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
 import org.openmrs.module.mohbilling.businesslogic.FacilityServicePriceUtil;
-import org.openmrs.module.mohbilling.model.BillableService;
 import org.openmrs.module.mohbilling.model.FacilityServicePrice;
-import org.openmrs.module.mohbilling.model.Insurance;
 import org.openmrs.module.mohbilling.service.BillingService;
 import org.openmrs.web.WebConstants;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 import org.springframework.web.servlet.view.RedirectView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @author Yves GAKUBA
@@ -52,8 +44,7 @@ public class MohBillingFacilityServiceByInsuranceCompanyListController extends
 					BillingService.class).getFacilityServicePrice(
 					Integer.valueOf(request.getParameter("facilityServiceId")));
 
-			mav.addObject("billableServices", FacilityServicePriceUtil
-					.getBillableServices(facilityService, new Date(), false));
+			mav.addObject("billableServices", FacilityServicePriceUtil.getBillableServices(facilityService));
 
 			mav.addObject("facilityService", facilityService);
 		} catch (Exception e) {

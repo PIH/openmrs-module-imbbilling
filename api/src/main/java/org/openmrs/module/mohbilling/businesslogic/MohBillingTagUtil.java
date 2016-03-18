@@ -24,22 +24,18 @@ public class MohBillingTagUtil {
 	public static String getTotalAmountPaidByPatientBill(Integer patientBillId) {
 
 		Long amountPaid = 0l;
-//		MathContext mc = new MathContext(BigDecimal.ROUND_HALF_DOWN);
 
 		if (null == patientBillId)
 			return "";
 		else {
 			try {
-				PatientBill pb = Context.getService(BillingService.class)
-						.getPatientBill(patientBillId);
+				PatientBill pb = Context.getService(BillingService.class).getPatientBill(patientBillId);
 
-				if(pb.getAmountPaid() != null)
-					amountPaid = pb.getAmountPaid().longValue();
-//				for (BillPayment bp : pb.getPayments()) {
-//					amountPaid = amountPaid + bp.getAmountPaid().longValue();
-//				}
-
-			} catch (Exception e) {
+				if (pb.getAmountPaid() != null) {
+                    amountPaid = pb.getAmountPaid().longValue();
+                }
+			}
+            catch (Exception e) {
 				e.printStackTrace();
 				return "";
 			}
@@ -163,73 +159,6 @@ public class MohBillingTagUtil {
 				+ new BigDecimal(1).multiply(
 						BigDecimal.valueOf(amountPaidByThirdPart), mc)
 						.longValue();
-	}
-	
-	public static List<Double> getDetailsPaymentsByPatientBill(
-			Integer patientBillId) {
-
-		double amountNotPaid = 0d;
-		List<Double> payments = new ArrayList<Double>();
-
-			try {
-				double totalAmountPaid = 0d;
-				
-				PatientBill pb = Context.getService(BillingService.class)
-						.getPatientBill(patientBillId);
-				Float insuranceRate = pb.getBeneficiary().getInsurancePolicy()
-						.getInsurance().getCurrentRate().getRate();
-				Float patientRate = (100f - insuranceRate) / 100f;
-				
-				double amountDueByPatient = (pb.getAmount().doubleValue() * patientRate
-						.doubleValue());
-
-				for (BillPayment bp : pb.getPayments()) {
-					totalAmountPaid = totalAmountPaid + bp.getAmountPaid().doubleValue();
-					payments.add(bp.getAmountPaid().doubleValue());
-				}
-
-				if (pb.getBeneficiary().getInsurancePolicy().getThirdParty() == null) {
-					amountNotPaid = amountDueByPatient - totalAmountPaid;
-
-					/** Marking the BILL as PAID */
-					if (amountNotPaid <= 0) {
-						pb.setIsPaid(true);
-						Context.getService(BillingService.class)
-								.savePatientBill(pb);
-					}
-
-					/** END of PAID part... */
-				} else {
-
-					double thirdPartRate = pb.getBeneficiary()
-							.getInsurancePolicy().getThirdParty().getRate()
-							.doubleValue();
-
-					double amountPaidByThirdPart = pb.getAmount().doubleValue()
-							* (thirdPartRate / 100);
-
-					amountNotPaid = amountDueByPatient - (amountPaidByThirdPart + totalAmountPaid);
-
-					/** Marking the BILL as PAID */
-					if (amountNotPaid <= 0) {
-						pb.setIsPaid(true);
-						
-						Context.getService(BillingService.class)
-								.savePatientBill(pb);
-					}
-
-					/** END of PAID part... */
-				}
-
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-			
-		/** Rounding the value to 2 decimals */
-		double roundedAmountNotPaid = Math.round(amountNotPaid * 100);
-		roundedAmountNotPaid = roundedAmountNotPaid / 100;
-
-		return payments;
 	}
 
 }

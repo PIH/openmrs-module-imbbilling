@@ -96,11 +96,6 @@ public class HibernateBillingDAO implements BillingDAO {
 				Insurance.class, insuranceId);
 	}
 
-	private Beneficiary getBeneficiary(Integer beneficiaryId) {
-		return (Beneficiary) sessionFactory.getCurrentSession().get(
-				Beneficiary.class, beneficiaryId);
-	}
-
 	/**
 	 * (non-Javadoc)
 	 * 
@@ -518,76 +513,7 @@ public class HibernateBillingDAO implements BillingDAO {
 				.createSQLQuery(combinedSearch.toString())
 				.addEntity("pay", BillPayment.class).list();
 
-//		System.out.println("_____________________ BILL QUERY __________\n"
-//				+ combinedSearch.toString());
 		return billPayments;
-	}
-
-	/**
-	 * Gets all corresponding patient service bills matching the parameters
-	 * 
-	 * @param patientBill
-	 * @param serviceName
-	 * @return
-	 */
-	private Set<PatientServiceBill> getBillItems(PatientBill patientBill,
-			String serviceName) {
-
-		List<PatientServiceBill> services = new ArrayList<PatientServiceBill>();
-		Session session = sessionFactory.getCurrentSession();
-		StringBuilder combinedSearch = new StringBuilder("");
-
-		combinedSearch
-				.append("SELECT DISTINCT psb.patient_service_bill_id,psb.service_date,"
-						+ "psb.unit_price,psb.quantity,psb.service_other,"
-						+ "psb.service_other_description,psb.created_date,"
-						+ "psb.voided,psb.voided_date,psb.void_reason,"
-						+ "psb.billable_service_id,psb.patient_bill_id, "
-						+ "psb.voided_by,psb.creator FROM moh_bill_patient_service_bill psb ");
-		combinedSearch
-				.append(" INNER JOIN moh_bill_patient_bill pb ON pb.patient_bill_id = psb.patient_bill_id"
-						+ " INNER JOIN moh_bill_billable_service bs ON bs.billable_service_id = psb.billable_service_id "
-						+ " INNER JOIN moh_bill_service_category sc ON sc.service_category_id = bs.service_category_id "
-						+ " WHERE psb.voided = 0");
-
-		if (serviceName != null && !serviceName.equals(""))
-			combinedSearch.append(" AND sc.name LIKE '" + serviceName + "'");
-
-		if (patientBill != null)
-			combinedSearch.append(" AND psb.patient_bill_id = "
-					+ patientBill.getPatientBillId());
-
-		combinedSearch.append(";");
-
-		List<Object[]> billItems = session.createSQLQuery(
-				combinedSearch.toString()).list();
-
-		for (Object[] obj : billItems) {
-			PatientServiceBill psBill = new PatientServiceBill();
-
-			psBill.setPatientServiceBillId((Integer) obj[0]);
-			psBill.setServiceDate((Date) obj[1]);
-			psBill.setUnitPrice((BigDecimal) obj[2]);
-			psBill.setQuantity((BigDecimal) obj[3]);
-			psBill.setServiceOther((String) obj[4]);
-			psBill.setServiceOtherDescription((String) obj[5]);
-			psBill.setCreatedDate((Date) obj[6]);
-			psBill.setVoided(false);
-			psBill.setVoidedDate(null);
-			psBill.setVoidReason(null);
-			psBill.setService(getBillableService((Integer) obj[10]));
-			psBill.setPatientBill(getPatientBill((Integer) obj[11]));
-			psBill.setVoidedBy(null);
-			psBill.setCreator(Context.getUserService().getUser(
-					(Integer) obj[13]));
-
-			services.add(psBill);
-		}
-
-		Set<PatientServiceBill> items = new HashSet<PatientServiceBill>(
-				services);
-
-		return items;
 	}
 
 	public BillableService getBillableService(Integer billableServiceId) {

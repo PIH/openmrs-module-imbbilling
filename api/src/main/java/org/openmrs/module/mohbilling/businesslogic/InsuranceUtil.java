@@ -63,99 +63,6 @@ public class InsuranceUtil {
 	};
 
 	/**
-	 * Auto generated method comment
-	 * 
-	 * @param insurance
-	 * @param date
-	 * @return
-	 */
-	public static List<ServiceCategory> getServiceCategories(
-			Insurance insurance, Date date) {
-
-		List<ServiceCategory> serviceCategories = new ArrayList<ServiceCategory>();
-		for (ServiceCategory serviceCategory : insurance.getCategories()) {
-
-			if (serviceCategory.getRetiredDate() != null) {
-				if (serviceCategory.getRetiredDate().compareTo(date) > 0) {
-					serviceCategories.add(serviceCategory);
-				}
-			} else {
-				serviceCategories.add(serviceCategory);
-			}
-		}
-
-		return serviceCategories;
-
-	}
-
-	/**
-	 * @param insurance
-	 * @param name
-	 * @param address
-	 * @param phone
-	 */
-	public static void updateInsuranceInfomations(Insurance insurance,
-			String name, String address, String phone) {
-
-		if (name != null) {
-			insurance.setName(name);
-		}
-		if (address != null) {
-			insurance.setAddress(address);
-		}
-		if (phone != null) {
-			insurance.setPhone(phone);
-		}
-
-		getService().saveInsurance(insurance);
-	}
-
-	/**
-	 * Auto generated method comment
-	 * 
-	 * @param insurance
-	 * @param creator
-	 * @param createdDate
-	 * @param concept
-	 */
-	public static void updateInsuranceCreationInfos(Insurance insurance,
-			User creator, Date createdDate, Concept concept) {
-
-		if (creator != null) {
-			insurance.setCreator(creator);
-		}
-		if (createdDate != null) {
-			insurance.setCreatedDate(createdDate);
-		}
-		if (concept != null) {
-			insurance.setConcept(concept);
-		}
-
-		getService().saveInsurance(insurance);
-	}
-
-	/**
-	 * @param name
-	 * @param address
-	 * @param phone
-	 * @param concept
-	 */
-	public static void createInsurance(String name, String address,
-			String phone, Concept concept) {
-
-		Insurance insurance = new Insurance();
-
-		insurance.setName(name);
-		insurance.setAddress(address);
-		insurance.setPhone(phone);
-		insurance.setConcept(concept);
-		insurance.setCreator(Context.getAuthenticatedUser());
-		insurance.setCreatedDate(new Date());
-
-		getService().saveInsurance(insurance);
-	}
-
-	/**
 	 * Creates an new or edit an existing one. It just offers the option of
 	 * adding only and only one rate to the given insurance. If InsuranceRate is
 	 * not provided, it will just save the insurance.
@@ -197,50 +104,6 @@ public class InsuranceUtil {
 	}
 
 	/**
-	 * At the same time we retire the existing ones or the current (valid) one :
-	 * see Edit link in insurance form. Look through the Rates and retire all
-	 * existing Rates. Also check the StartDate is not ranged in the previous
-	 * Rate validity dates range (this has to be implemented in the business
-	 * logic)
-	 * 
-	 * @param insurance
-	 * @param Rate
-	 * @param flatFee
-	 * @param startDate
-	 */
-	public static void createInsuranceRate(Insurance insurance, Float rate,
-			BigDecimal flatFee, Date startDate) {
-		// Create a new insurance rate will be the Retire Reason for the current
-		// one to be retired
-		InsuranceRate insuranceRate = new InsuranceRate();
-
-		insuranceRate.setFlatFee(flatFee);
-		insuranceRate.setRate(rate);
-		insuranceRate.setStartDate(startDate);
-		insuranceRate.setCreator(Context.getAuthenticatedUser());
-		insuranceRate.setCreatedDate(new Date());
-
-		if (insurance.getRates() != null)
-			for (InsuranceRate ir : insurance.getRates()) {
-				if (!ir.isRetired() && ir.getRetiredDate() == null) {
-					ir.setRetiredDate(startDate);
-					retireInsuranceRate(
-							insurance,
-							ir,
-							"A New Insurance Rate of : '"
-									+ insuranceRate.getRate()
-									+ "%' and Flat fee of : '"
-									+ insuranceRate.getFlatFee()
-									+ "' is created.");
-					break;
-				}
-			}
-
-		insurance.addInsuranceRate(insuranceRate);
-		getService().saveInsurance(insurance);
-	}
-
-	/**
 	 * Auto generated method comment
 	 * 
 	 * @param insurance
@@ -263,40 +126,6 @@ public class InsuranceUtil {
 		}
 
 		getService().saveInsurance(insurance);
-	}
-
-	/**
-	 * Adds a new Insurance Rate instead of editing the existing that has to be
-	 * retired in this case.
-	 * 
-	 * @param insurance
-	 * @param rate
-	 */
-	public static void editInsuranceRate(Insurance insurance, InsuranceRate rate) {
-
-		for (InsuranceRate ir : insurance.getRates()) {
-			if (ir.equals(rate)) {
-				ir.setRetireReason("The previous Insurance Rate of ID: '"
-						+ ir.getInsuranceRateId()
-						+ "' was misspelled and mistaken");
-				ir.setRetired(true);
-				break;
-			}
-		}
-
-		getService().saveInsurance(insurance);
-
-	}
-
-	/**
-	 * This is the same as Saving an insurance: addNewInsurance();
-	 * 
-	 * @param insurance
-	 */
-	public static void editInsurance(Insurance insurance) {
-
-		if (insurance != null)
-			getService().saveInsurance(insurance);
 	}
 
 	/**
@@ -327,48 +156,6 @@ public class InsuranceUtil {
 	}
 
 	/**
-	 * This has to be on the Insurance Object. This will use the
-	 * "getRateOnDate(Date date)" where date is the "new Date()" i.e. today's
-	 * date
-	 * 
-	 * @return
-	 */
-	public static InsuranceRate getCurrentRate(Insurance insurance) {
-
-		return insurance.getRateOnDate(new Date());
-	}
-
-	/**
-	 * Looking through all existing Rates for the given Insurance and display
-	 * (return) String msg saying that the StartDate entered by the user is in
-	 * Dates Ranges of previous Insurance Rates: considering the Rates related
-	 * to the given Insurance.}
-	 * 
-	 * @param insurance
-	 * @param startDate
-	 * @return
-	 */
-	public static String checkRateStartDateConflict(Insurance insurance,
-			Date startDate) {
-
-		String message = "";
-
-		for (InsuranceRate ir : insurance.getRates()) {
-			if (ir.getEndDate() != null)
-				if (ir.getEndDate().compareTo(startDate) > 0
-						|| ir.getStartDate().compareTo(startDate) > 0) {
-					message = "The entered Start Date ("
-							+ startDate.toString()
-							+ ") is in the range of an existing Insurance Rate (i.e. From '"
-							+ ir.getStartDate() + "' To '" + ir.getEndDate()
-							+ "')";
-					break;
-				}
-		}
-		return message;
-	}
-
-	/**
 	 * Gets insurances considering the provided validity: i.e. if isValid ==
 	 * true it will return the non voided Insurance, and voided ones otherwise.
 	 * 
@@ -385,67 +172,6 @@ public class InsuranceUtil {
 				insurances.add(insurance);
 
 		return insurances;
-	}
-
-	/**
-	 * Gets all Valid/Invalid service categories depending on the provided
-	 * validity value
-	 * 
-	 * @param insurance
-	 *            the insurance company to be matched
-	 * @param isValid
-	 *            the conditioning value
-	 * @return voided Service Categories by Insurance if isValid == false,
-	 *         unvoided otherwise
-	 */
-	public static List<ServiceCategory> getServiceCategoriesByInsurance(
-			Insurance insurance, Boolean isValid) {
-
-		List<ServiceCategory> categories = new ArrayList<ServiceCategory>();
-
-		for (ServiceCategory category : getService().getInsurance(
-				insurance.getInsuranceId()).getCategories()) {
-			if (category.isRetired() != isValid) {
-				categories.add(category);
-			}
-		}
-		return categories;
-	}
-
-	/**
-	 * Gets the Valid (not yet retired) Billable services at a Facility and by
-	 * specified insurance company on a given date
-	 * 
-	 * @param insurance
-	 * @param date
-	 * @param facilityServicePrice
-	 * @return
-	 */
-	public static List<BillableService> getBillableServicesByInsurance(
-			Insurance insurance, Date date, Boolean isRetired) {
-
-		List<BillableService> services = new ArrayList<BillableService>();
-
-		for (FacilityServicePrice fsp : getService()
-				.getAllFacilityServicePrices())
-			if (!fsp.isRetired())
-				for (BillableService service : fsp.getBillableServices()) {
-
-					if (service.isRetired() == isRetired
-							&& service.getInsurance() != null
-							&& service.getStartDate().compareTo(date) <= 0)
-						services.add(service);
-					if (service.getEndDate() != null)
-						if (service.getInsurance() != null
-								&& service.getEndDate().compareTo(date) > 0
-								&& service.getStartDate().compareTo(date) <= 0)
-							services.add(service);
-				}
-
-		// Sorting by Service Category
-		Collections.sort(services, BILLABLE_SERVICE_COMPARATOR);
-
-		return services;
 	}
 
 	/**
@@ -527,132 +253,26 @@ public class InsuranceUtil {
 		} else
 			return null;
 	}
-	
-	public static BillableService saveBillableServiceForPharmacyItems(BillableService service) {
-		
-		FacilityServicePrice fsp = service.getFacilityServicePrice();
 
-		if (service != null && fsp != null) {
-
-			BigDecimal amount = fsp.getFullPrice();
-
-			// This means the Maxima to Pay is not set in the service
-			if (service.getMaximaToPay() == null) {
-				service.setMaximaToPay(amount);
-			} else
-				// This happens when Maxima to Pay is set in the service
-				service.setMaximaToPay(service.getMaximaToPay());
-
-			fsp.addBillableService(service);
-			getService().saveFacilityServicePrice(fsp);
-
-			return service;
-		}
-		
-		return null;
-	}
-
-	public static String getCategoryName(ServiceCategory category) {
-		if (category != null)
-			return category.getName();
-		else
-			return null;
-	}
-
-	/**
-	 * Updates the Billable service into the DB
-	 * 
-	 * @param service
-	 *            the Billable service to be updated
-	 * @return the updated Billable service
-	 */
-	public static BillableService editBillableService(BillableService service) {
-
-		return saveBillableService(service);
-	}
 
 	/**
 	 * Gets a Billable service by the provided ID
 	 * 
-	 * @param id
-	 *            the ID to be found
+	 * @param id the ID to be found
 	 * @return service Billable if ID matches, and null otherwise
 	 */
 	public static BillableService getValidBillableService(Integer id) {
-
 		return getService().getBillableService(id);
-	}
-
-	/**
-	 * Gets all Billable services on a given date and not retired if specified
-	 * 
-	 * @param date
-	 *            the date to check the validity
-	 * @param isRetired
-	 *            true means "is retired" and false means "is not retired"
-	 * @return the list of Billable service that matched the conditions
-	 */
-	public static List<BillableService> getAllBillableServices(Date date,
-			Boolean isRetired) {
-
-		List<BillableService> services = new ArrayList<BillableService>();
-
-		for (FacilityServicePrice fsp : getService()
-				.getAllFacilityServicePrices())
-			if (!fsp.isRetired())
-				for (BillableService service : fsp.getBillableServices()) {
-
-					if (service.isRetired() == isRetired
-							&& service.getInsurance() != null
-							&& service.getStartDate().compareTo(date) <= 0)
-						services.add(service);
-					if (service.getEndDate() != null)
-						if (service.getInsurance() != null
-								&& service.getEndDate().compareTo(date) > 0
-								&& service.getStartDate().compareTo(date) <= 0)
-							services.add(service);
-				}
-
-		return services;
 	}
 
 	/**
 	 * Gets a Service category by the provided ID
 	 * 
-	 * @param id
-	 *            the ID to be found
+	 * @param id the ID to be found
 	 * @return category Service if ID matches, and null otherwise
 	 */
 	public static ServiceCategory getValidServiceCategory(Integer id) {
-
 		return getService().getServiceCategory(id);
-	}
-
-	/**
-	 * Retires a Billable service for a given Facility Service
-	 * 
-	 * @param billableService
-	 *            the billable service to be retired
-	 * @param retiredDate
-	 *            the date we retire the service
-	 * @param retireReason
-	 *            the reason for retirement
-	 * @param facilityServicePrice
-	 *            the facility service to be updated
-	 */
-	public static void retireBillableService(BillableService billableService,
-			Date retiredDate, String retireReason) {
-
-		FacilityServicePrice fsp = billableService.getFacilityServicePrice();
-
-		billableService.setRetired(true);
-		billableService.setRetiredBy(Context.getAuthenticatedUser());
-		billableService.setRetiredDate((retiredDate != null) ? retiredDate
-				: new Date());
-		billableService.setRetireReason(retireReason != null
-				|| retireReason != "" ? retireReason : "No reason provided");
-
-		getService().saveFacilityServicePrice(fsp);
 	}
 
 	public static List<String> getAllServiceCategories() {
@@ -685,24 +305,33 @@ public class InsuranceUtil {
 		return categories;
 	}
 
-	public static Insurance getInsuranceByConcept(Concept concept) {
-
-		for (Insurance insurance : getInsurances(true)) {
-			if (insurance.getConcept().equals(concept))
-				return insurance;
-		}
-
-		return null;
-	}
-
 	public static Insurance getInsurance(Integer insuranceId) {
-
 		return getService().getInsurance(insuranceId);
 	}
 
 	public static List<Insurance> getAllInsurances() {
-		
 		return getService().getAllInsurances();
 	}
+
+    public static Insurance getInsuranceByConcept(Concept concept) {
+        for (Insurance insurance : getInsurances(true)) {
+            if (insurance.getConcept().equals(concept))
+                return insurance;
+        }
+        return null;
+    }
+
+    /**
+     * @param category the category of Insurance to look up, case insensitive
+     * @return the first insurance found that has the given category
+     */
+    public static Insurance getInsuranceByCategory(String category) {
+        for (Insurance ins : InsuranceUtil.getAllInsurances()) {
+            if (ins.getCategory().equalsIgnoreCase(category)) {
+                return ins;
+            }
+        }
+        return null;
+    }
 
 }

@@ -51,7 +51,7 @@ public class MohBillingBillableServiceFormController extends
 		try {
 
 			mav.addObject("facilityServices",
-					FacilityServicePriceUtil.getFacilityServices(true));
+					FacilityServicePriceUtil.getFacilityServices());
 
 			if (null == request.getParameter("billableServiceId")) {
 				mav.addObject(

@@ -48,7 +48,7 @@ public class MohBillingFacilityServiceListController extends
 							"DID NOT Update AT ALL !");
 
 		mav.addObject("facilityServices",
-				FacilityServicePriceUtil.getFacilityServices(true));
+				FacilityServicePriceUtil.getFacilityServices());
 
 		return mav;
 

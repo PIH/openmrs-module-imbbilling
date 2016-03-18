@@ -1,63 +1,22 @@
 package org.openmrs.module.mohbilling.businesslogic;
 
-import org.openmrs.EncounterType;
-import org.openmrs.api.context.Context;
-
 public class BillingConstants {
 
-	// public static EncounterType ENCOUNTER_TYPE_REGISTRATION;
-	// public static EncounterType ENCOUNTER_TYPE_VITALS;
-	// public static EncounterType ENCOUNTER_TYPE_DIAGNOSIS;
-	// public static Privilege PRINT_BARCODE_OFFLINE_PRIVILEGE;
-	public static final int NONE_CONCEPT_ID = 1107;
-	public static final String PRIMARY_CARE_INSURANCE_EXPIRATION_DATE = Context
-			.getAdministrationService().getGlobalProperty(
-					"registration.insuranceExpirationDateConcept");
-	public static final String PRIMARY_CARE_INSURANCE_COVERAGE_START_DATE = Context
-			.getAdministrationService().getGlobalProperty(
-					"registration.insuranceCoverageStartDateConcept");
-	public static final String PRIMARY_CARE_SERVICE_REQUESTED = "registration.serviceRequestedConcept";
+    // The following 2 global properties serve only to find the patient's primary identifier of the given type at the given location
+    // If found, this serves as the Policy card number in cases where the Insurance Category for the Policy = None
 	public static final String GLOBAL_PROPERTY_PRIMARY_IDENTIFIER_TYPE = "billing.primaryIdentifierType";
-	public static final String GLOBAL_PROPERTY_OTHER_IDENTIFIER_TYPES = "billing.otherIdentifierTypes";
 	public static final String GLOBAL_PROPERTY_DEFAULT_LOCATION = "billing.defaultLocation";
-	
+
+    // The following 5 global properties are used exclusively by the FileExporter class for output on the various CSV and PDF reports
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO = "billing.healthFacilityLogo";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_NAME = "billing.healthFacilityName";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS = "billing.healthFacilityPhysicalAddress";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_SHORT_CODE = "billing.healthFacilityShortCode";
 	public static final String GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL = "billing.healthFacilityEmail";
-	public static final String GLOBAL_PROPERTY_REGISTRATION_ENCOUNTER_TYPE = "billing.registrationEncounterType";
-	// //TODO: the location code architecture is wrong -- all location codes
-	// come from module
-	// //TODO: this needs to correspond to a single default location
-	// //TODO: registration clerk can override this in module.
-	// public static final String GLOBAL_PROPERTY_RWANDA_LOCATION_CODE =
-	// "registration.rwandaLocationCodes";
-	// public static final String GLOBAL_PROPERTY_DEFAULT_LOCATION_CODE =
-	// "registration.defaultLocationCode";
-	public static final String GLOBAL_PROPERTY_INSURANCE_TYPE = "registration.insuranceTypeConcept";
-	public static final String GLOBAL_PROPERTY_INSURANCE_NUMBER = "registration.insuranceNumberConcept";
-	// public static final String GLOBAL_PROPERTY_NATIONAL_ID_TYPE =
-	// "registration.nationalIdType";
-	// public static final String SESSION_ATTRIBUTE_WORKSTATION_LOCATION =
-	// "primaryCareWorkstationLocation";
-	// public static final String GLOBAL_PROPERTY_HEALTH_CENTER_ATTRIBUTE_TYPE =
-	// "registration.healthCenterPersonAttribute";
-	// public static final String GLOBAL_PROPERTY_INSURANCE_TYPE_ANSWERS =
-	// "registration.insuranceTypeConceptAnswers";
-	// public static final String GLOBAL_PROPERTY_MOTHERS_NAME_CONCEPT =
-	// "registration.mothersNameConceptId";
-	// public static final String GLOBAL_PROPERTY_FATHERS_NAME_CONCEPT =
-	// "registration.fathersNameConceptId";
-	// public static final String GLOBAL_PROPERTY_SERVICE_REQUESTED_CONCEPT =
-	// "registration.serviceRequestedConcept";
-	// public final static String
-	// GLOBAL_PROPERTY_PARENT_TO_CHILD_RELATIONSHIP_TYPE =
-	// "registration.parentChildRelationshipTypeId";
-	// public final static String GLOBAL_PROPERTY_RESTRICT_BY_HEALTH_CENTER =
-	// "registration.restrictSearchByHealthCenter";
-	// public static final String MOTHER_NAME_ATTRIBUTE_TYPE = "Mother's name";
-	// public static final String FATHER_NAME_ATTRIBUTE_TYPE = "Father's name";
-	public static EncounterType ENCOUNTER_TYPE_REGISTRATION;
 
+    // The following 2 properties seem to be used only by the revenue reports / cashier reports
+    // The first defines the service categories for the report, the second presumably maps to the service categories defined above
+    // to provide an alternative, more concise heading for the cell in the report
+    public static final String GLOBAL_PROPERTY_SERVICE_CATEGORIES = "billing.serviceCategories";
+    public static final String GLOBAL_PROPERTY_SERVICE_CATEGORY_REPORT_COLUMNS = "billing.reportColumns";
 }

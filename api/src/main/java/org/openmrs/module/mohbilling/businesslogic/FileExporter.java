@@ -2,7 +2,6 @@ package org.openmrs.module.mohbilling.businesslogic;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.math.BigDecimal;
 import java.net.MalformedURLException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -43,7 +42,6 @@ import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.mail.imap.Rights.Right;
 
 public class FileExporter {
 	private Log log = LogFactory.getLog(this.getClass());
@@ -230,7 +228,7 @@ public class FileExporter {
 		FontSelector boldFont = new FontSelector();
 		boldFont.addFont(new Font(FontFamily.COURIER, 6, Font.BOLD));
 		
-		List<String> reportColumns = BillingGlobalProperties.getreportColumns();
+		List<String> reportColumns = BillingGlobalProperties.getReportColumns();
 	//String[] reportColumns = {"DATE","CHIR","CONSOMM","CONSULT","ECHOG","FORMAL","HOSPITAL","KINE","LABO","MATERN","MEDICAM","OXGYENO","OPHTAL","RADIO","SOINS INF","STOMAT","AMBULAN","DOC.LEGAUX","MORGUE","DUE.TOT","RECEIVD","PART.PAID"};
 		PdfPCell cell=null;
 		for (String colName : reportColumns) {

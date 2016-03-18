@@ -1,23 +1,10 @@
 package org.openmrs.module.mohbilling.web.controller;
 
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
-import org.openmrs.module.mohbilling.advice.MohBillingUsageStatsUtils;
 import org.openmrs.module.mohbilling.businesslogic.BillingGlobalProperties;
 import org.openmrs.module.mohbilling.businesslogic.FileExporter;
 import org.openmrs.module.mohbilling.businesslogic.InsuranceUtil;
@@ -29,6 +16,16 @@ import org.openmrs.module.mohbilling.model.PatientServiceBill;
 import org.openmrs.module.mohbilling.service.BillingService;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class MohBillingRevenueController extends ParameterizableViewController {
 	protected final Log log = LogFactory.getLog(getClass());
@@ -120,49 +117,12 @@ public class MohBillingRevenueController extends ParameterizableViewController {
 
 					LinkedHashMap<Double, LinkedHashMap<String, Map<String, Double>>> compiledFactures = new LinkedHashMap<Double, LinkedHashMap<String, Map<String, Double>>>();
 
-					TreeSet<Date> datesBetweenTwoDates = MohBillingUsageStatsUtils
-							.getDaysBetweenDates(startDate, endDate);
 					// Map for partially paid
 					LinkedHashMap<String, Double> partiallPaidMap = new LinkedHashMap<String, Double>();
 					// Map for both partially paid and full paid bills
 
-					/*
-					 * String[] serviceCategories = {"CHIR", "CONSOMM",
-					 * "CONSULT","ECHOG", "FORMAL", "HOSPITAL","KINE", "LABO",
-					 * "MATERN","MEDICAM","OXGYENO", "OPHTAL","RADIO",
-					 * "SOINS INF", "STOMAT", "AMBULAN","DOC.LEGAUX","MORGUE"};
-					 */
-					List<String> serviceCategories = BillingGlobalProperties
-							.getListofServiceCategory();
-					
-				//	for (Date date : datesBetweenTwoDates) {
+					List<String> serviceCategories = BillingGlobalProperties.getListOfServiceCategory();
 
-						/*Date startOfDay = null;
-						Date endOfDay = null;
-						
-
-							if (date == datesBetweenTwoDates.first()) {
-
-								// startOfDay =
-								// sdf.parse(MohBillingUsageStatsUtils.getStartOfDay(date));
-								startOfDay = startDate;
-								endOfDay = sdf.parse(MohBillingUsageStatsUtils
-										.getEndOfDay(date));
-							}
-							else if (date == datesBetweenTwoDates.last()) {
-								startOfDay = sdf.parse(MohBillingUsageStatsUtils.getStartOfDay(date));
-								// endOfDay =
-								// sdf.parse(MohBillingUsageStatsUtils.getEndOfDay(date));
-								endOfDay = endDate;
-							}
-
-							else {
-
-								startOfDay = sdf.parse(MohBillingUsageStatsUtils.getStartOfDay(date));
-								endOfDay = sdf.parse(MohBillingUsageStatsUtils.getEndOfDay(date));
-							}
-													
-						*/
 					Object[] allfactureCompiled = bs.getBills(startDate,
 							endDate, collector);
 						//Object[] allfactureCompiled = bs.getBills(startOfDay,endOfDay, collector);

@@ -15,11 +15,6 @@
 
 	<activator>@MODULE_PACKAGE@.MohBillingActivator</activator>
 
-	<!--
-		<updateURL>https://dev.openmrs.org/modules/download/mohbilling/update.rdf</updateURL>
-	-->
-	<!-- /Base Module Properties -->
-
 	 <require_version>1.6.2.12911</require_version>  
 	 <!-- <require_version>1.6.1.12909</require_version> -->
 
@@ -37,29 +32,6 @@
 		<point>org.openmrs.gutter.tools</point>
 		<class>@MODULE_PACKAGE@.extension.html.BillingGutterLink</class>
 	</extension>
-	
-
-	<!-- AOP -->
-		
-	<advice>
-		<point>org.openmrs.api.PatientService</point>
-		<class>@MODULE_PACKAGE@.advice.PatientServiceAdvice</class>
-	</advice>
-		
-	<advice>
-		<point>org.openmrs.api.EncounterService</point>
-		<class>@MODULE_PACKAGE@.advice.EncounterServiceAdvice</class>
-	</advice>
-		
-		<!-- /AOP -->
-
-
-	<!--
-		Required Privileges <privilege> <name>Form Entry</name>
-		<description>Allows user to access Form Entry
-		pages/functions</description> </privilege> /Required Privileges
-	-->
-
 
 	<!-- Required Global Properties -->
 	
@@ -131,29 +103,6 @@
 		</description>
 	</globalProperty>
 	
-	<globalProperty>
-		<property>billing.tarrif.act</property>
-		<defaultValue>act</defaultValue>
-		<description>
-			This should be the categories in which tariff are provided at the high level (acts and pharmacy)
-		</description>
-	</globalProperty>
-	
-	<globalProperty>
-		<property>billing.tarrif.pharmacy</property>
-		<defaultValue>pharmacy</defaultValue>
-		<description>
-			This should be the categories in which tariff are provided at the high level (acts and pharmacy)
-		</description>
-	</globalProperty>
-	<globalProperty>
-		<property>billing.registrationEncounterType</property>
-		<defaultValue>11</defaultValue>
-		<description>
-			Must be the ID of the Encounter type used for registration.
-		</description>
-	</globalProperty>
-	
 	<!-- /Required Global Properties -->
 
 	<dwr>
@@ -166,15 +115,6 @@
 		</allow>	
 	</dwr>
 
-	<!-- Servlets -->
-	<!--
-		Accessed through the url
-		/pageContext()/moduleServlet/<moduleId>/<servlet-name> <servlet>
-		<servlet-name>formDownload</servlet-name>
-		<servlet-class>@MODULE_PACKAGE@.web.FormDownloadServlet</servlet-class>
-		</servlet>
-	-->
-	<!-- /Servlets -->
   <privilege>
         <name>Add Facility service</name>
         <description>Allows user to Add Facility service</description>
