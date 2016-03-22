@@ -3,18 +3,19 @@
  */
 package org.openmrs.module.mohbilling.model;
 
+import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.User;
+import org.openmrs.util.OpenmrsUtil;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Date;
-
-import org.openmrs.User;
-import org.openmrs.util.OpenmrsUtil;
 
 /**
  * @author Kamonyo
  * 
  */
-public class PatientServiceBill implements Comparable<PatientServiceBill> {
+public class PatientServiceBill extends BaseOpenmrsObject implements Comparable<PatientServiceBill> {
 	private Integer patientServiceBillId;
 	private Date serviceDate;
 	private BillableService service;
@@ -32,6 +33,22 @@ public class PatientServiceBill implements Comparable<PatientServiceBill> {
 	private User voidedBy;
 	private Date voidedDate;
 	private String voidReason;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getPatientServiceBillId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setPatientServiceBillId(id);
+    }
 
 	/**
 	 * @return the patientServiceBillId

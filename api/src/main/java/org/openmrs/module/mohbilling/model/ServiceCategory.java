@@ -6,6 +6,7 @@ package org.openmrs.module.mohbilling.model;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
 
@@ -14,7 +15,7 @@ import org.openmrs.util.OpenmrsUtil;
  * 
  *         This is only useful when we are talking about Capitation!
  */
-public class ServiceCategory implements Comparable<ServiceCategory> {
+public class ServiceCategory extends BaseOpenmrsObject implements Comparable<ServiceCategory> {
 
 	private Integer serviceCategoryId;
 	private String name;
@@ -27,6 +28,22 @@ public class ServiceCategory implements Comparable<ServiceCategory> {
 	private Insurance insurance;
 	private User creator;
 	private User retiredBy;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getServiceCategoryId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setServiceCategoryId(id);
+    }
 
 	public ServiceCategory() {
 		super();

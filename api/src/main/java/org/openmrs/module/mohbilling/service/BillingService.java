@@ -12,6 +12,7 @@ import java.util.Set;
 import org.openmrs.Concept;
 import org.openmrs.Patient;
 import org.openmrs.User;
+import org.openmrs.api.OpenmrsService;
 import org.openmrs.api.db.DAOException;
 import org.openmrs.module.mohbilling.model.Beneficiary;
 import org.openmrs.module.mohbilling.model.BillPayment;
@@ -30,7 +31,7 @@ import org.openmrs.module.mohbilling.model.ThirdParty;
  * @author Kamonyo
  * 
  */
-public interface BillingService {
+public interface BillingService extends OpenmrsService {
 
 	/**
 	 * Gets the Patient Bill from the DB by specifying the Object/ID

@@ -3,19 +3,20 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Kamonyo
  * 
  */
-public class InsurancePolicy {
+public class InsurancePolicy extends BaseOpenmrsObject {
 
 	private Integer insurancePolicyId;
 	private Insurance insurance;
@@ -33,6 +34,22 @@ public class InsurancePolicy {
 	private Date retiredDate;
 	private String retireReason;
 	private Set<Beneficiary> beneficiaries;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getInsurancePolicyId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setInsurancePolicyId(id);
+    }
 
 	/**
 	 * @return the insurancePolicyId

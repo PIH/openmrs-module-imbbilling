@@ -3,15 +3,16 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.util.Date;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.util.Date;
 
 /**
  * @author Kamonyo
  */
-public class ThirdParty implements Comparable<ThirdParty> {
+public class ThirdParty extends BaseOpenmrsObject implements Comparable<ThirdParty> {
 
 	private Integer thirdPartyId;
 	private String name;
@@ -23,7 +24,23 @@ public class ThirdParty implements Comparable<ThirdParty> {
 	private User voidedBy;
 	private Date voidedDate;
 	private String voidReason;
-	
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getThirdPartyId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setThirdPartyId(id);
+    }
+
 	/**
 	 * @return the thirdPartyId
 	 */

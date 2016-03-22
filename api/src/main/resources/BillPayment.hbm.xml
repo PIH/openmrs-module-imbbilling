@@ -14,6 +14,8 @@
 			<generator class="native" />
 		</id>
 
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" not-null="true" />
+
 		<property name="amountPaid" column="amount_paid" type="big_decimal" />
 		<property name="dateReceived" column="date_received" />
 		<property name="createdDate" column="created_date" />

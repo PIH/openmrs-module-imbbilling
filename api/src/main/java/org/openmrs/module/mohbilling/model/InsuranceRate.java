@@ -3,17 +3,18 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Kamonyo
  * 
  */
-public class InsuranceRate implements Comparable<InsuranceRate> {
+public class InsuranceRate extends BaseOpenmrsObject implements Comparable<InsuranceRate> {
 	private Integer insuranceRateId;
 	private Insurance insurance;
 	private Float rate;
@@ -26,6 +27,22 @@ public class InsuranceRate implements Comparable<InsuranceRate> {
 	private User retiredBy;
 	private Date retiredDate;
 	private String retireReason;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getInsuranceRateId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setInsuranceRateId(id);
+    }
 
 	public Integer getInsuranceRateId() {
 		return insuranceRateId;

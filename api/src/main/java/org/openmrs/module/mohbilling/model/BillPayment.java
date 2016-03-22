@@ -3,17 +3,18 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Kamonyo
  * 
  */
-public class BillPayment implements Comparable<BillPayment> {
+public class BillPayment extends BaseOpenmrsObject implements Comparable<BillPayment> {
 
 	private Integer billPaymentId;
 	private BigDecimal amountPaid;
@@ -26,7 +27,22 @@ public class BillPayment implements Comparable<BillPayment> {
 	private User voidedBy;
 	private Date voidedDate;
 	private String voidReason;
-	
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getBillPaymentId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setBillPaymentId(id);
+    }
 
 	/**
 	 * @return the billPaymentId

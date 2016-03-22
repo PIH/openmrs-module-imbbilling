@@ -3,17 +3,18 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * @author Kamonyo
  * 
  */
-public class BillableService implements Comparable<BillableService> {
+public class BillableService extends BaseOpenmrsObject implements Comparable<BillableService> {
 	private Integer serviceId;
 	private Insurance insurance;
 	private BigDecimal maximaToPay;
@@ -27,6 +28,22 @@ public class BillableService implements Comparable<BillableService> {
 	private Date retiredDate;
 	private User retiredBy;
 	private String retireReason;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getServiceId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setServiceId(id);
+    }
 
 	/**
 	 * @return the serviceId

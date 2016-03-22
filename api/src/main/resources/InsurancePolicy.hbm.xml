@@ -13,6 +13,8 @@
 			<generator class="native" />
 		</id>
 
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" not-null="true" />
+
 		<property name="insuranceCardNo" column="insurance_card_no" type="text" />
 		<property name="coverageStartDate" column="coverage_start_date" type="date" />
 		<property name="expirationDate" column="expiration_date" type="date" />

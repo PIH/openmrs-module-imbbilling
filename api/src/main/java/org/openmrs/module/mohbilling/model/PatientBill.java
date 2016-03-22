@@ -3,19 +3,20 @@
  */
 package org.openmrs.module.mohbilling.model;
 
+import org.openmrs.BaseOpenmrsObject;
+import org.openmrs.User;
+import org.openmrs.util.OpenmrsUtil;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 
-import org.openmrs.User;
-import org.openmrs.util.OpenmrsUtil;
-
 /**
  * @author Kamonyo
  * 
  */
-public class PatientBill {
+public class PatientBill extends BaseOpenmrsObject {
 	private Integer patientBillId;
 	private String description;
 	private Beneficiary beneficiary;
@@ -31,6 +32,22 @@ public class PatientBill {
 	private String voidReason;
 	private Set<PatientServiceBill> billItems;
 	private Set<BillPayment> payments;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getPatientBillId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setPatientBillId(id);
+    }
 
 	/**
 	 * @return the patientBillId

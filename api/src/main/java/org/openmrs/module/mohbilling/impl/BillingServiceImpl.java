@@ -14,6 +14,7 @@ import org.openmrs.Patient;
 import org.openmrs.User;
 import org.openmrs.api.APIException;
 import org.openmrs.api.db.DAOException;
+import org.openmrs.api.impl.BaseOpenmrsService;
 import org.openmrs.module.mohbilling.db.BillingDAO;
 import org.openmrs.module.mohbilling.model.Beneficiary;
 import org.openmrs.module.mohbilling.model.BillPayment;
@@ -36,7 +37,7 @@ import org.springframework.transaction.annotation.Transactional;
  * 
  */
 @Transactional
-public class BillingServiceImpl implements BillingService {
+public class BillingServiceImpl extends BaseOpenmrsService implements BillingService {
 
 	private BillingDAO billingDAO;
 

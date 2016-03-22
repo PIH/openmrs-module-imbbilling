@@ -493,4 +493,88 @@
 		</sql>
 	</diff>
 
+    <diff>
+        <version>1.3.1.1</version>
+        <description>
+            Add a uuid column to all tables
+        </description>
+        <sql>
+            ALTER TABLE moh_bill_facility_service_price ADD COLUMN uuid CHAR(38) AFTER facility_service_price_id;
+            ALTER TABLE moh_bill_insurance ADD COLUMN uuid CHAR(38) AFTER insurance_id;
+            ALTER TABLE moh_bill_insurance_rate ADD COLUMN uuid CHAR(38) AFTER insurance_rate_id;
+            ALTER TABLE moh_bill_service_category ADD COLUMN uuid CHAR(38) AFTER service_category_id;
+            ALTER TABLE moh_bill_third_party ADD COLUMN uuid CHAR(38) AFTER third_party_id;
+            ALTER TABLE moh_bill_billable_service ADD COLUMN uuid CHAR(38) AFTER billable_service_id;
+            ALTER TABLE moh_bill_insurance_policy ADD COLUMN uuid CHAR(38) AFTER insurance_policy_id;
+            ALTER TABLE moh_bill_beneficiary ADD COLUMN uuid CHAR(38) AFTER beneficiary_id;
+            ALTER TABLE moh_bill_patient_bill ADD COLUMN uuid CHAR(38) AFTER patient_bill_id;
+            ALTER TABLE moh_bill_patient_service_bill ADD COLUMN uuid CHAR(38) AFTER patient_service_bill_id;
+            ALTER TABLE moh_bill_payment ADD COLUMN uuid CHAR(38) AFTER bill_payment_id;
+            ALTER TABLE moh_bill_recovery ADD COLUMN uuid CHAR(38) AFTER recovery_id;
+        </sql>
+    </diff>
+
+    <diff>
+        <version>1.3.1.2</version>
+        <description>
+            Populate the uuid column in all tables
+        </description>
+        <sql>
+            UPDATE moh_bill_facility_service_price SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_insurance SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_insurance_rate SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_service_category SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_third_party SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_billable_service SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_insurance_policy SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_beneficiary SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_patient_bill SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_patient_service_bill SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_payment SET uuid = UUID() WHERE uuid is null;
+            UPDATE moh_bill_recovery SET uuid = UUID() WHERE uuid is null;
+        </sql>
+    </diff>
+
+    <diff>
+        <version>1.3.1.3</version>
+        <description>
+            Set the uuid column to be non-nullable in all tables
+        </description>
+        <sql>
+            ALTER TABLE moh_bill_facility_service_price MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_insurance MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_insurance_rate MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_service_category MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_third_party MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_billable_service MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_insurance_policy MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_beneficiary MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_patient_bill MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_patient_service_bill MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_payment MODIFY uuid CHAR(38) NOT NULL;
+            ALTER TABLE moh_bill_recovery MODIFY uuid CHAR(38) NOT NULL;
+        </sql>
+    </diff>
+
+    <diff>
+        <version>1.3.1.4</version>
+        <description>
+            Add a unique constraint on uuid in all tables
+        </description>
+        <sql>
+            ALTER TABLE moh_bill_facility_service_price ADD UNIQUE INDEX ix_moh_bill_facility_service_price_uuid(uuid);
+            ALTER TABLE moh_bill_insurance ADD UNIQUE INDEX ix_moh_bill_insurance_uuid(uuid);
+            ALTER TABLE moh_bill_insurance_rate ADD UNIQUE INDEX ix_moh_bill_insurance_rate_uuid(uuid);
+            ALTER TABLE moh_bill_service_category ADD UNIQUE INDEX ix_moh_bill_service_category_uuid(uuid);
+            ALTER TABLE moh_bill_third_party ADD UNIQUE INDEX ix_moh_bill_third_party_uuid(uuid);
+            ALTER TABLE moh_bill_billable_service ADD UNIQUE INDEX ix_moh_bill_billable_service_uuid(uuid);
+            ALTER TABLE moh_bill_insurance_policy ADD UNIQUE INDEX ix_moh_bill_insurance_policy_uuid(uuid);
+            ALTER TABLE moh_bill_beneficiary ADD UNIQUE INDEX ix_moh_bill_beneficiary_uuid(uuid);
+            ALTER TABLE moh_bill_patient_bill ADD UNIQUE INDEX ix_moh_bill_patient_bill_uuid(uuid);
+            ALTER TABLE moh_bill_patient_service_bill ADD UNIQUE INDEX ix_moh_bill_patient_service_bill_uuid(uuid);
+            ALTER TABLE moh_bill_payment ADD UNIQUE INDEX ix_moh_bill_payment_uuid(uuid);
+            ALTER TABLE moh_bill_recovery ADD UNIQUE INDEX ix_moh_bill_recovery_uuid(uuid);
+        </sql>
+    </diff>
+
 </sqldiff>

@@ -3,19 +3,20 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.Concept;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
+
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * @author Kamonyo
  * 
  */
-public class Insurance implements Comparable<Insurance> {
+public class Insurance extends BaseOpenmrsObject implements Comparable<Insurance> {
 	private Integer insuranceId;
 	private String name;
 	private String address;
@@ -30,6 +31,22 @@ public class Insurance implements Comparable<Insurance> {
 	private Set<InsuranceRate> rates;
 	private Set<ServiceCategory> categories;
 	private String category;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getInsuranceId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setInsuranceId(id);
+    }
 
 	/**
 	 * @param category

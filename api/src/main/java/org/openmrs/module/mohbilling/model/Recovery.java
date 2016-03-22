@@ -1,12 +1,13 @@
 package org.openmrs.module.mohbilling.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
 
-public class Recovery implements Comparable<Recovery> {
+import java.math.BigDecimal;
+import java.util.Date;
+
+public class Recovery extends BaseOpenmrsObject implements Comparable<Recovery> {
 
 	private Integer recoveryId;
 	private Insurance insuranceId;
@@ -30,6 +31,22 @@ public class Recovery implements Comparable<Recovery> {
 	private User retiredBy;
 	private Date retiredDate;
 	private String retireReason;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getRecoveryId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setRecoveryId(id);
+    }
 
 	/**
 	 * @return the recoveryId

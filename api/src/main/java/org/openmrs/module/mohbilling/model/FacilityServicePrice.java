@@ -3,21 +3,22 @@
  */
 package org.openmrs.module.mohbilling.model;
 
-import java.math.BigDecimal;
-import java.util.Date;
-import java.util.Set;
-import java.util.TreeSet;
-
+import org.openmrs.BaseOpenmrsObject;
 import org.openmrs.Concept;
 import org.openmrs.Location;
 import org.openmrs.User;
 import org.openmrs.util.OpenmrsUtil;
 
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Set;
+import java.util.TreeSet;
+
 /**
  * @author Kamonyo
  * 
  */
-public class FacilityServicePrice implements Comparable<FacilityServicePrice> {
+public class FacilityServicePrice extends BaseOpenmrsObject implements Comparable<FacilityServicePrice> {
 
 	private Integer facilityServicePriceId;
 	private String name;
@@ -36,6 +37,22 @@ public class FacilityServicePrice implements Comparable<FacilityServicePrice> {
 	private User creator;
 	private User retiredBy;
 	private Set<BillableService> billableServices;
+
+    /**
+     * @see BaseOpenmrsObject#getId()
+     */
+    @Override
+    public Integer getId() {
+        return getFacilityServicePriceId();
+    }
+
+    /**
+     * @see BaseOpenmrsObject#setId(Integer)
+     */
+    @Override
+    public void setId(Integer id) {
+        setFacilityServicePriceId(id);
+    }
 
 	/**
 	 * @return list of BillableServices
@@ -223,7 +240,7 @@ public class FacilityServicePrice implements Comparable<FacilityServicePrice> {
 	}
 
 	/**
-	 * @param retireReason2
+	 * @param retireReason
 	 *            the retireReason to set
 	 */
 	public void setRetireReason(String retireReason) {
@@ -368,14 +385,16 @@ public class FacilityServicePrice implements Comparable<FacilityServicePrice> {
 	 */
 	@Override
 	public String toString() {
-
-		return "\n - Facility Service Id : " + this.facilityServicePriceId
-				+ "\n - Name : " + this.getName() + "\n - Short name : "
-				+ this.shortName + "\n - Description : " + this.description
-				+ "\n - Full Price : " + this.fullPrice + "\n - Location : "
-				+ this.location.getName() + "\n - Concept :"
-				+ this.concept.getDisplayString() + "\n - Creator : "
-				+ this.creator.getName();
+        StringBuilder sb = new StringBuilder();
+        sb.append("\n - Facility Service Id : " + this.facilityServicePriceId);
+        sb.append("\n - Name : " + this.getName());
+        sb.append("\n - Short name : " + this.shortName);
+        sb.append("\n - Description : " + this.description);
+        sb.append("\n - Full Price : " + this.fullPrice);
+        sb.append("\n - Location : " + this.location.getName());
+        sb.append("\n - Concept :" + (this.concept == null ? null : this.concept.getName()));
+        sb.append("\n - Creator : " + (this.creator == null ? null : this.creator));
+        return sb.toString();
 	}
 
 	/**

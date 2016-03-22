@@ -13,6 +13,8 @@
 			<generator class="native" />
 		</id>
 
+        <property name="uuid" type="java.lang.String" column="uuid" length="38" unique="true" not-null="true" />
+
 		<property name="serviceDate" column="service_date" type="java.util.Date" />
 		<property name="unitPrice" column="unit_price" type="big_decimal" />
 		<property name="quantity" column="quantity" type="big_decimal" />		
