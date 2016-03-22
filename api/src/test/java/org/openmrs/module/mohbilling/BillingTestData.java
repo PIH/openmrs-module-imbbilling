@@ -10,6 +10,8 @@
 
 package org.openmrs.module.mohbilling;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openmrs.Concept;
 import org.openmrs.ConceptName;
 import org.openmrs.Location;
@@ -29,6 +31,8 @@ import java.util.Locale;
  * The goal of this class is to produce sufficient test data to ensure the system works as advertised
  */
 public class BillingTestData {
+
+    protected static final Log log = LogFactory.getLog(BillingTestData.class);
 
     // CHIRURGIES
 
@@ -90,6 +94,7 @@ public class BillingTestData {
             concept.setConceptClass(conceptService.getConceptClassByName(getConceptClassNameForCategory(category)));
             concept.setDatatype(conceptService.getConceptDatatypeByName("N/A"));
             conceptService.saveConcept(concept);
+            log.warn("Created concept: " + concept);
         }
 
         // Next, create a FacilityServicePrice for this item
@@ -101,8 +106,12 @@ public class BillingTestData {
         fsp.setFullPrice(new BigDecimal(price));
         fsp.setStartDate(parseDate(sd));
         fsp.setEndDate(parseDate(ed));
-        fsp.setLocation(location == null ? Context.getLocationService().getDefaultLocation() : location);
+        fsp.setLocation(location == null ? Context.getLocationService().getDefaultLocation() : location);  // TODO: Potentially move to the service
+        fsp.setCreator(Context.getAuthenticatedUser()); // TODO: This should not be needed, need to get these wired in as OpenmrsMetadata and OpenmrsServices
+        fsp.setCreatedDate(new Date()); // TODO: This should not be needed, need to get these wired in as OpenmrsMetadata and OpenmrsServices
         billingService.saveFacilityServicePrice(fsp);
+
+        log.warn("Created facility service price: " + fsp);
 
         return fsp;
     }
