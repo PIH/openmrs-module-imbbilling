@@ -18,10 +18,7 @@ At a particular location, during a particular date range, each billable item is 
     Date endDate -- The date at which this price is no longer valid
     Location location -- The location at which this price is applicable
 
-**Questions/Issues:**
-* What is "shortName" used for?  Is this needed?
-* Why is category a String? Shouldn't this be a **Category** enum?
-* This needs a uuid, and should extend BaseOpenmrsMetadata
+**Questions**
 * Are users expected to duplicate data across all locations and periods?
 
 ### Insurance plan
@@ -36,11 +33,8 @@ An insurance plan is represented by by the **Insurance** class, stored in the **
     Set<ServiceCategory> categories -- The categories in which the insurance plan organizes it's billable services
     String category -- High-level type of insurance ("base", "mutuelle", "private", "none")
 
-**Questions/Issues:**
+**Questions:**
 * Is this the correct interpretation of the different categories?
-* This needs a uuid, and should extend BaseOpenmrsMetadata
-* This should have retireable properties rather than voidable properties
-* The category property should be of type InsuranceCategory (enum)
 
 ### Insurance Rate
 
@@ -52,10 +46,6 @@ The **InsuranceRate** class, backed by **moh_bill_insurance_rate** table, repres
     Date start_date -- The date at which this rate becomes valid
     Date end_date -- The date at which this rate is no longer valid
 
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsMetadata
-* Flat fee is never used at all.  Can we remove it?
-
 ### Service Category
 
 The **ServiceCategory** class, backed by the **moh_bill_service_category** table, represents a categorization of billable services that is supported by a given **Insurance**.  My best current guess is that this exists in order to support the organization of service charges on a claim to an Insurance in the category structure that they require, but this requires confirmation.
@@ -65,9 +55,7 @@ The **ServiceCategory** class, backed by the **moh_bill_service_category** table
     String description -- The category description
     BigDecimal price; // Commented as "the capitation price" - I don't think this is used
 
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsMetadata
-* Price does not seem to be used at all.  Can we remove it?
+**Questions:**
 * We need to verify that the code does not make any assumptions that these service categories need to match any of the options listed in the Category enum.  Or if they do need to match in some way, we need to document how.  The different uses of category in this module is the source of some confusion.
 
 ### Billable Service
@@ -77,13 +65,9 @@ The **BillableService** class, backed by the **moh_bill_billable_service** table
     Insurance insurance -- The insurance this is associated with
     FacilityServicePrice facilityServicePrice -- The facility service price this is associated with
     ServiceCategory serviceCategory -- The category of this service with the Insurance
-    BigDecimal maximaToPay -- See questions below, not used?
+    BigDecimal maximaToPay -- Enables an insurance to override the maximum price for the service
     Date start_date -- The date at which this billable service becomes valid
     Date end_date -- The date at which this billable service is no longer valid
-
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsMetadata
-* From what I can tell, maximaToPay is not actually used anywhere in the system.  There are business logic methods that calculate and set the maximaToPay under certain circumstances based on Insurance category and FacilityServicePrice ServiceCategory (medicaments and consommables = 100%, otherwise base = 100%, mutuelle = 50%, private = 125%, none = 150%), but I don't see this maximaToPay being actually applied to a bill or a report anywhere.
 
 ### Third Party
 
@@ -91,10 +75,6 @@ The **ThirdParty** class, backed by the **moh_bill_third_party** table, represen
 
     String name -- The name of the ThirdParty
     Float rate -- The percentage rate that this ThirdParty covers
-
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsMetadata
-* This should have retireable properties rather than voidable properties
 
 ## Data
 
@@ -110,10 +90,6 @@ The **InsurancePolicy** class, backed by the **moh_bill_insurance_policy** table
     ThirdParty thirdParty -- An associated ThirdParty who may be responsible for a portion of coverage
     Set<Beneficiary> beneficiaries - The beneficiaries who can be billed under this policy
 
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
-* This should have voidable properties rather than retireable properties
-
 ### Beneficiary
 
 The **Beneficiary** class, backed by the **moh_bill_beneficiary** table, represents a Patient covered by a particular Insurance Policy.
@@ -122,28 +98,18 @@ The **Beneficiary** class, backed by the **moh_bill_beneficiary** table, represe
     InsurancePolicy insurancePolicy -- The Insurance Policy that covers this Patient
     String policyIdNumber -- The identifier of this particular beneficiary under the policy
 
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
-* This should have voidable properties rather than retireable properties
-
 ### Patient Bill
 
 The **PatientBill** class, backed by the **moh_bill_patient_bill** table, represents a bill for services for a certain amount, linked to a particular Beneficiary.  It contains high-level fields for retrieving the total amount of the bill and the bill payment status, as well as detailed line items for each billable item (see PatientServiceBill below) and payment received (see BillPayment below).
 
     String description -- This does not appear to be used at all
-	  Beneficiary beneficiary -- The Beneficiary who is being billed
-	  BigDecimal amount -- This does not appear to be used at all, in favor of on-demand calculation from the billItems
-	  boolean printed -- Indicates whether or not the bill was printed
-	  boolean isPaid -- Indicates whether or not the bill is paid
-	  String status -- The status of the Bill (see BillStatus - FULLY_PAID, PARTLY_PAID, UNPAID)
-	  Set<PatientServiceBill> billItems -- The individual line items on the bill
-	  Set<BillPayment> payments -- The payments that have been made against this bill
-
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
-* The description field does not appear to be in use at all, can remove?
-* The amount field does not appear to be in use at all, can remove?
-* Status should be of type BillStatus, not a String
+    Beneficiary beneficiary -- The Beneficiary who is being billed
+    BigDecimal amount -- This does not appear to be used at all, in favor of on-demand calculation from the billItems
+    boolean printed -- Indicates whether or not the bill was printed
+    boolean isPaid -- Indicates whether or not the bill is paid
+    String status -- The status of the Bill (see BillStatus - FULLY_PAID, PARTLY_PAID, UNPAID)
+    Set<PatientServiceBill> billItems -- The individual line items on the bill
+    Set<BillPayment> payments -- The payments that have been made against this bill
 
 ### Patient Bill Item
 
@@ -157,10 +123,6 @@ The **PatientServiceBill** class, backed by the **moh_bill_patient_service_bill*
     BigDecimal unitPrice -- The unit cost of the service
     BigDecimal quantity -- The total quantity of the service received
 
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
-* The serviceOther and serviceOtherDescription fields do not appear to be in use at all, can remove?
-
 ### Bill Payment
 
 The **BillPayment** class, backed by the **moh_bill_payment** table, represents a single payment made against a particular bill.
@@ -169,9 +131,6 @@ The **BillPayment** class, backed by the **moh_bill_payment** table, represents 
     BigDecimal amountPaid -- The amount that was paid
     Date dateReceived -- The date on which the payment was received
     User collector -- The user who received the payment (typically restricted to users with role of Cashier or Chief Cashier, sometimes Admin)
-
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
 
 ### Insurance and Third Party Recovery
 
@@ -190,10 +149,6 @@ The **Recovery** class, backed by the **moh_bill_recovery** table, represents a 
     String partlyPayReason - The reason why payment was only partially made
     String noPaymentReason - The reason why no payment was made
     String observation - Free-text comments or observations to record about the payment status
-
-**Questions/Issues:**
-* This needs a uuid, and should extend BaseOpenmrsData
-* This should have voidable properties rather than retireable properties
 
 ## Print Outs and Reporting
 
