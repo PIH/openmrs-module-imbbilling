@@ -1,33 +1,5 @@
 package org.openmrs.module.mohbilling.businesslogic;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.math.BigDecimal;
-import java.net.MalformedURLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.openmrs.Patient;
-import org.openmrs.api.APIException;
-import org.openmrs.api.context.Context;
-import org.openmrs.module.mohbilling.businesslogic.ReportsUtil.HeaderFooter;
-import org.openmrs.module.mohbilling.model.BillPayment;
-import org.openmrs.module.mohbilling.model.Consommation;
-import org.openmrs.module.mohbilling.model.PatientBill;
-import org.openmrs.module.mohbilling.model.PatientInvoice;
-import org.openmrs.module.mohbilling.model.PatientServiceBill;
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chunk;
 import com.itextpdf.text.Document;
@@ -43,7 +15,30 @@ import com.itextpdf.text.pdf.FontSelector;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.sun.mail.imap.Rights.Right;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.openmrs.Patient;
+import org.openmrs.api.context.Context;
+import org.openmrs.module.mohbilling.businesslogic.ReportsUtil.HeaderFooter;
+import org.openmrs.module.mohbilling.model.BillPayment;
+import org.openmrs.module.mohbilling.model.Consommation;
+import org.openmrs.module.mohbilling.model.PatientBill;
+import org.openmrs.module.mohbilling.model.PatientInvoice;
+import org.openmrs.module.mohbilling.model.PatientServiceBill;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class FileExporter {
 	private Log log = LogFactory.getLog(this.getClass());
@@ -53,7 +48,7 @@ public class FileExporter {
 	 * 
 	 * @param request
 	 * @param response
-	 * @param res
+	 * @param map
 	 * @param filename
 	 * @param title
 	 * @throws Exception
@@ -69,21 +64,24 @@ public class FileExporter {
 		Set<String> serviceCategories = null;
 		Double insuranceRate = null;
 		SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-		
-		
-		//display Header
-//		Image image = Image.getInstance(Context.getAdministrationService()
-//				.getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO));
-//		
-//		op.println(image);
-		if(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME)!="")
-		op.println(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME));
-		if(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS)!="")
-		op.println(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS));
-		if(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_SHORT_CODE)!="")
-		op.println(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_SHORT_CODE));
-		if(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL)!="")
-		op.println(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL));
+
+        String facilityName = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME, null);
+        String facilityAddress = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS, null);
+        String facilityShortCode = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_SHORT_CODE, null);
+        String facilityEmail = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL, null);
+
+		if(facilityName != null) {
+            op.println(facilityName);
+        }
+        if(facilityAddress != null) {
+            op.println(facilityAddress);
+        }
+        if(facilityShortCode != null) {
+            op.println(facilityShortCode);
+        }
+        if(facilityEmail != null) {
+            op.println(facilityEmail);
+        }
 
 		op.println();
 		
@@ -167,13 +165,12 @@ public class FileExporter {
 	/**
 	 * @param request
 	 * @param response
-	 * @param res
+	 * @param patientInvoice
 	 * @param filename
 	 * @param title
 	 * @throws Exception
 	 */
-	public void exportPatientBillToPDF(HttpServletRequest request,	HttpServletResponse response,PatientInvoice patientInvoice, String filename,
-			String title) throws Exception {
+	public void exportPatientBillToPDF(HttpServletRequest request,HttpServletResponse response, PatientInvoice patientInvoice, String filename, String title) throws Exception {
 		
 		PatientBill pb = patientInvoice.getPatientBill();
 		
@@ -185,8 +182,8 @@ public class FileExporter {
 		Document document = fexp.makeReportHeader(request, response, pb);
 		
 		//add report heading
-		document.add(fontSelector.process("REPUBLIQUE DU RWANDA\n")); 
-		document.add(fexp.getImage());
+		document.add(fontSelector.process("REPUBLIQUE DU RWANDA\n"));
+        addHealthFacilityLogoToDocument(document);
 		
 		//add hc physical address
 		document.add(fexp.displayPysicalAddress(headingFont, pb));
@@ -340,21 +337,11 @@ public class FileExporter {
 		FontSelector fontTitle = new FontSelector();
 		fontTitle.addFont(new Font(FontFamily.COURIER, 10, Font.NORMAL));
 		
-		//diplay lago and address
-		
-		Image image = Image.getInstance(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO));
-		image.scaleToFit(40, 40);
+		// Display logo and address
 		
 		document.add(fontTitle.process("REPUBLIQUE DU RWANDA\n"));
-
-		/** I would like a LOGO here!!! */
-		document.add(image);		
-		document.add(fontTitle.process(Context.getAdministrationService().getGlobalProperty(
-						BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME)+ "\n"));
-		document.add(fontTitle.process(Context.getAdministrationService()
-						.getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS)+ "\n"));
-		document.add(fontTitle.process(Context.getAdministrationService().getGlobalProperty(
-						BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL)+ "\n"));
+        addHealthFacilityLogoToDocument(document);
+		document.add(fontTitle.process(getAddress()));
 		
 		//display other report details
 		Chunk chk = new Chunk("DEPOSIT REPORT");
@@ -463,19 +450,12 @@ public class FileExporter {
 		document.close();
 		
 	}
-	public static Document creadPdfHeader(HttpServletRequest request,	HttpServletResponse response,LinkedHashMap<String, Map<String, Double>> basedDateReport, String filename,
-			String title)throws Exception {
+
+	public static Document creadPdfHeader(HttpServletRequest request,	HttpServletResponse response,LinkedHashMap<String, Map<String, Double>> basedDateReport, String filename, String title) throws Exception {
 		Rectangle pagesize = new Rectangle(360f, 720f);
 		Document document = new Document(pagesize, 36f, 72f, 109f, 180f);
-	
-		//Document document = new Document();
-		
+
 		document.setPageSize(PageSize.A4.rotate());
-		/** Initializing image to be the logo if any... */
-		Image image = Image.getInstance(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO));
-		image.scaleToFit(40, 40);
-		
-		/** END of Initializing image */
 
 		response.setContentType("application/pdf");
 		response.setHeader("Content-Disposition", "attachment; filename=\""	+ filename + "\""); // file name
@@ -724,20 +704,7 @@ public class FileExporter {
 			fontsMap.put("BOLD",boldFont);
 			return fontsMap;
 		}
-		public String getAddress(){
-			String facilityName = Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME);
-			String facilityPhysicAddress = Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS);
-			String facilityEmail = Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL);
-			
-			String fullAddress =facilityName +"\n"+facilityPhysicAddress+"\n"+facilityEmail;
-			return fullAddress;
-		}
-		public Image getImage() throws Exception, MalformedURLException, APIException, IOException{
-			Image image = Image.getInstance(Context.getAdministrationService()
-					.getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO));
-			image.scaleToFit(40, 40);
-			return image;
-		}
+
 		public Document makeReportHeader(HttpServletRequest request,
 				HttpServletResponse response,PatientBill pb) throws DocumentException, IOException{
 			Document document = new Document();
@@ -761,8 +728,7 @@ public class FileExporter {
 		}
 		/**
 		 * displays last even item (just one item)
-		 * @param psb
-		 * @param odd
+		 * @param pb
 		 * @return
 		 */
 		public PdfPTable displayLastElementIfEvenItems(PatientBill pb){
@@ -786,18 +752,11 @@ public class FileExporter {
 					.getCurrentRate().getRate());
 		}
 		public void pdfPrintRefundReport(HttpServletRequest request, HttpServletResponse response,Set<PatientBill> patientBill, String filename, String title) throws Exception {
-			FileExporter fexp = new FileExporter();
+
 			Rectangle pagesize = new Rectangle(360f, 720f);
 			Document document = new Document(pagesize, 36f, 72f, 109f, 180f);
-		
-			//Document document = new Document();
-			
+
 			document.setPageSize(PageSize.A4.rotate());
-			/** Initializing image to be the logo if any... */
-			Image image = Image.getInstance(Context.getAdministrationService().getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO));
-			image.scaleToFit(40, 40);
-			
-			/** END of Initializing image */
 
 			response.setContentType("application/pdf");
 			response.setHeader("Content-Disposition", "attachment; filename=\""	+ filename + "\""); // file name
@@ -814,7 +773,7 @@ public class FileExporter {
 			document.open();
 			FontSelector fontSelector = (FontSelector) getFonts().get("NORMAL");
 			document.add(fontSelector.process("REPUBLIQUE OF RWANDA                                                    Printed on: "+new Date()+"\n"));
-			document.add(getImage());
+			addHealthFacilityLogoToDocument(document);
 			document.add(fontSelector.process(getAddress()));
 			
 			Chunk chk = new Chunk("Refund Report");
@@ -937,5 +896,54 @@ public class FileExporter {
 			document.close();
 			
 		}
-	  
-	}
+
+    /**
+     * Adds the health facility logo to the document at the current position
+     * @return true if this was successful, false if it was unable to add the image
+     */
+    public boolean addHealthFacilityLogoToDocument(Document document) {
+        Image image = getImage();
+        if (image != null) {
+            try {
+                document.add(image);
+                return true;
+            }
+            catch (Exception e) {
+                log.warn("WARNING: Unable to add image to document", e);
+            }
+        }
+        return false;
+    }
+
+    public Image getImage() {
+        String imagePath = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO, null);
+        try {
+            Image image = Image.getInstance(imagePath);
+            image.scaleToFit(40, 40);
+            return image;
+        }
+        catch (Exception e) {
+            log.warn("WARNING: Unable to get health facility image logo.  Please check that '" + imagePath + "' is valid");
+        }
+        return null;
+    }
+
+    /**
+     * @return the name, address, and email of the facility as configured in the global properties, on three lines
+     */
+    public String getAddress(){
+        String facilityName = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME, "");
+        String facilityPhysicAddress = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS, "");
+        String facilityEmail = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL, "");
+        String fullAddress =facilityName +"\n"+facilityPhysicAddress+"\n"+facilityEmail;
+        return fullAddress;
+    }
+
+    /**
+     * @return the global property value with the configured name
+     */
+    protected static String getGlobalProperty(String propertyName, String defaultValue) {
+        String value = Context.getAdministrationService().getGlobalProperty(propertyName);
+        return StringUtils.isNotBlank(value) ? value : defaultValue;
+    }
+}

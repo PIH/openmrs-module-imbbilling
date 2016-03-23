@@ -12,6 +12,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.itextpdf.text.Image;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.api.context.Context;
@@ -256,10 +257,11 @@ public class MohBillingPrintPatientBillController extends AbstractController {
 		privateServicesTable.addCell(privCell);
 
 		privCell = new PdfPCell();
-	    privCell.addElement(new Chunk(fexp.getImage(), 20, -20));
-		privateServicesTable.addCell(privCell);      
-
-//		document.add(privateServicesTable);
+        Image facilityLogo = fexp.getImage();
+        if (facilityLogo != null) {
+            privCell.addElement(new Chunk(facilityLogo, 20, -20));
+        }
+        privateServicesTable.addCell(privCell);
 
 		PdfPTable privateItemsTable = new PdfPTable(2);
 		float[] width = {30f,30f };
@@ -317,8 +319,8 @@ public class MohBillingPrintPatientBillController extends AbstractController {
 	/** -------------  print insurance part -----------------------------------------------*/
 		
 		//=======================SIMPLE HEADING==========================================================
-		document.add(fontTitle.process(rwanda)); 
-		document.add(fexp.getImage());
+		document.add(fontTitle.process(rwanda));
+        fexp.addHealthFacilityLogoToDocument(document);
 
 		document.add(fexp.displayPysicalAddress(catFont, pb));
 		
@@ -409,8 +411,7 @@ public class MohBillingPrintPatientBillController extends AbstractController {
 		document.add(fontTitle.process("\n"));
 		document.add(fontTitle.process("REPUBLIQUE DU RWANDA\n"));
 
-		/** I would like a LOGO here!!! */
-		document.add(fexp.getImage());
+        fexp.addHealthFacilityLogoToDocument(document);
 
 		Font catFont = new Font(Font.FontFamily.COURIER, 8,Font.NORMAL);
 		
