@@ -4,7 +4,7 @@
 <script>
 
 	function loadBillableServiceByCategory(serviceCategoryId){
-		$("#serviceCategory_"+serviceCategoryId).load("billableServiceByServiceCategory.list?serviceCategoryId="+serviceCategoryId);
+		jQuery("#serviceCategory_"+serviceCategoryId).load("billableServiceByServiceCategory.list?serviceCategoryId="+serviceCategoryId);
 	}
 
 	var index=0;
@@ -48,8 +48,8 @@
 
 	    calculateTheBill();
 
-	    $("#billableService_"+serviceId).removeClass("unselectedService");
-	    $("#billableService_"+serviceId).addClass("selectedService");
+	    jQuery("#billableService_"+serviceId).removeClass("unselectedService");
+	    jQuery("#billableService_"+serviceId).addClass("selectedService");
 
 	    recountServiceInTheCart();
 	}
@@ -121,8 +121,8 @@
 			            rowCount--;
 			            i--;
 
-			            $("#billableService_"+serviceId).removeClass("selectedService");
-			    	    $("#billableService_"+serviceId).addClass("unselectedService");
+			            jQuery("#billableService_"+serviceId).removeClass("selectedService");
+			    	    jQuery("#billableService_"+serviceId).addClass("unselectedService");
 			        }
 
 			    }
@@ -152,7 +152,7 @@
 			}
 
 		    document.getElementById("pBill").innerHTML=bill.toFixed(2)+" RWF";
-		    $("#totalAmount").val(bill.toFixed(2));
+		    jQuery("#totalAmount").val(bill.toFixed(2));
 	    }catch(e) {
 	        alert(e);
 	    }
@@ -162,7 +162,7 @@
 		if(confirm("Are you sure you want to save?")){
 			
 			//set the number of services which has been clicked
-			$("#numberOfServicesClicked").val(index);
+			jQuery("#numberOfServicesClicked").val(index);
 
 			//submit the patient bill form
 			document.getElementById("form_save_patient_bill").submit();
