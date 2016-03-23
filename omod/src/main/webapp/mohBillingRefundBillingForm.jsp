@@ -1,6 +1,5 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
 <openmrs:require privilege="Manage Refund Bill" otherwise="/login.htm" redirect="/module/mohbilling/refundBill.form" />
 
 <script type="text/javascript">

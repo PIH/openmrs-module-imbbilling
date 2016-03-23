@@ -1,64 +1,16 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
 <openmrs:require privilege="Manage Billing Reports" otherwise="/login.htm" redirect="/mohbilling/cohort.form" />
-<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
-<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery.PrintArea.js" />
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
 
 <%@ taglib prefix="billingtag" uri="/WEB-INF/view/module/mohbilling/taglibs/billingtag.tld" %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<!--  
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
--->
 
-<!-- script to create a pop up windows for unpaid bills -->
 <openmrs:htmlInclude file="/moduleResources/mohbilling/pop_style.css" /> 
 <openmrs:htmlInclude file="/moduleResources/mohbilling/pop_script.js" />  
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
-<!-- 
-<script type="text/javascript" language="JavaScript">
-	var $bill = jQuery.noConflict();
-
-	$bill(document).ready(function() {
-		$bill('.meta').hide();
-		
-		$bill("input#print_button").click(function() {
-			$bill('.meta').show();
-			$bill("div.printarea").printArea();
-			$bill('.meta').hide();
-		});
-	});
-	
-</script>
- -->
-<script type="text/javascript" language="JavaScript">
-var $b = jQuery.noConflict();
-$b(document).ready(function(){
-    $b('#select_all').on('click',function(){
-        if(this.checked){
-            $b('.checkbox').each(function(){
-                this.checked = true;
-            });
-        }else{
-             $b('.checkbox').each(function(){
-                this.checked = false;
-            });
-        }
-    });
-    
-    $b('.checkbox').on('click',function(){
-        if($b('.checkbox:checked').length == $b('.checkbox').length){
-            $b('#select_all').prop('checked',true);
-        }else{
-            $b('#select_all').prop('checked',false);
-        }
-    });
-});
-</script>
-
-
 
 <h2><spring:message code="mohbilling.billing.report"/></h2>
 
@@ -95,12 +47,6 @@ $b(document).ready(function(){
 		<li>
 			<a href="refundBillReport.form">Refunding report</a>
 		</li>
-		
-		<!-- 
-		<li>
-			<a href="hmisReport.form">HMIS Reports</a>
-		</li>
-		 -->
 </ul>
 
 <b class="boxHeader">Search Form(Advanced)</b>
@@ -128,8 +74,6 @@ $b(document).ready(function(){
 		<td><openmrs_tag:userField formFieldName="billCreator" initialValue="${billCreator}"/></td>
 		
 		<td></td><td></td><td></td><td></td><td><td></td><td></td>
-		<!-- <td><a class="topopup" id="alert" style="color: red" href="javascript:toggleDiv('myContent');" style="background-color: #ccc; padding: 5px 10px;"><strong>Alerts(${alertSize})</strong></a></td> -->
-
 	</tr>
 
 	<tr>
@@ -163,21 +107,6 @@ $b(document).ready(function(){
 		<td>
 			<openmrs_tag:patientField formFieldName="patientId" initialValue="${patientId}" />
 		</td>
-		<!--td>Facility Services</td>
-		<td>
-			<select name="serviceId">
-				<option selected="selected" value="${serviceId}">
-					<c:choose>
-						<c:when test="${serviceId!=null}">${serviceId}</c:when>             
-				    	<c:otherwise>--Select service--</c:otherwise>
-				    </c:choose>
-				</option>
-				<c:forEach items="${categories}" var="service">
-					<option value="${service}">${service}</option>
-				</c:forEach>
-			</select>
-		</td-->
-		
 	</tr>
 
 </table>
@@ -193,9 +122,6 @@ $b(document).ready(function(){
 <b class="boxHeader">Search results </b>
 
 <form action="cohort.form?print=true" method="post" style="display: inline;">
-	<!-- <input type="submit" class="list_exportBt" value="PDF" title="Export to PDF"/>
-	 -->
-
 <br />
 <br />
 <table width="99%">
@@ -258,9 +184,6 @@ $b(document).ready(function(){
 			<td class="rowAmountValue"><b style="color: blue;">${obj[8]}</b></td>
 			<td class="rowAmountValue" style="color: green; font-weight: bold;">${obj[9]}</td>
 			<td class="rowTotalValue"><a href="patientBillPayment.form?patientBillId=${obj[10]}">View/</a></td>
-			<!--  
-			<td class="rowTotalValue"><input type="checkbox" class="checkbox" name="checked_bill" value="${obj[10]}"/></td>
-			-->
 		</tr>
 
 	</c:forEach>

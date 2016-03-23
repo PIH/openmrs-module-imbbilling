@@ -1,26 +1,17 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
-<openmrs:require privilege="Manage Billing Reports"
-	otherwise="/login.htm" redirect="/mohbilling/cohort.orm" />
-<openmrs:htmlInclude
-	file="/moduleResources/mohbilling/scripts/jquery-1.3.2.js" />
-<openmrs:htmlInclude
-	file="/moduleResources/mohbilling/scripts/jquery.PrintArea.js" />
+<openmrs:require privilege="Manage Billing Reports" otherwise="/login.htm" redirect="/mohbilling/cohort.form" />
+<openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery.PrintArea.js" />
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
-<%@ taglib prefix="billingtag"
-	uri="/WEB-INF/view/module/mohbilling/taglibs/billingtag.tld"%>
+<%@ taglib prefix="billingtag" uri="/WEB-INF/view/module/mohbilling/taglibs/billingtag.tld"%>
 
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<openmrs:htmlInclude file="/moduleResources/mohbilling/jquery.dataTables.js" />  
-
-<openmrs:htmlInclude file="/moduleResources/mohbilling/demo_page.css" />  
-
-<openmrs:htmlInclude file="/moduleResources/mohbilling/demo_table.css" /> 
-
-<openmrs:htmlInclude file="/moduleResources/mohbilling/jquery.js" />  
+<openmrs:htmlInclude file="/moduleResources/mohbilling/jquery.dataTables.js" />
+<openmrs:htmlInclude file="/moduleResources/mohbilling/demo_page.css" />
+<openmrs:htmlInclude file="/moduleResources/mohbilling/demo_table.css" />
 
 <script type="text/javascript" language="JavaScript">
 	var $bill = jQuery.noConflict();
