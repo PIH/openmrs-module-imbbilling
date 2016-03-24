@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MohBillingFacilityServiceListController {
 	
-	@RequestMapping("/module/mohbilling/facilityService")
+	@RequestMapping("/module/mohbilling/facilityService.list")
 	protected String handleRequestInternal(ModelMap model,
 	                                       @RequestParam(required = false, value = "facilityServiceId") String facilityServiceId,
 	                                       @RequestParam(required = false, value = "addCategoryToFacility") String addCategoryToFacility,

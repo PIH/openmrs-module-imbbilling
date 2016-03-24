@@ -11,6 +11,7 @@ import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.openmrs.Location;
@@ -19,114 +20,84 @@ import org.openmrs.module.mohbilling.businesslogic.FacilityServicePriceUtil;
 import org.openmrs.module.mohbilling.businesslogic.InsuranceUtil;
 import org.openmrs.module.mohbilling.model.BillableService;
 import org.openmrs.module.mohbilling.model.FacilityServicePrice;
-
 import org.openmrs.module.mohbilling.service.BillingService;
 import org.openmrs.web.WebConstants;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * @author Yves GAKUBA
- * 
  */
-public class MohBillingFacilityServiceFormController extends
-		ParameterizableViewController {
-
+@Controller
+public class MohBillingFacilityServiceFormController {
+	
 	/** Logger for this class and subclasses */
 	protected final Log log = LogFactory.getLog(getClass());
 	
-//	FacilityServicePrice oldfs=new FacilityServicePrice();
-	
-
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(getViewName());
-		mav.addObject("categories", InsuranceUtil.getAllServiceCategories());
+	@RequestMapping("/module/mohbilling/facilityService.form")
+	protected String handleRequestInternal(ModelMap model, HttpServletRequest request, HttpServletResponse response)
+	    throws Exception {
 		
+		model.addAttribute("categories", InsuranceUtil.getAllServiceCategories());
 		
 		if (request.getParameter("save") != null) {
-			boolean saved = handleSaveFacilityService(request, mav);
+			boolean saved = handleSaveFacilityService(request);
 			if (saved)
-				return new ModelAndView(
-						new RedirectView("facilityService.list"));
+				return "redirect:facilityService.list";
 		}
-
+		
 		if (request.getParameter("retire") != null) {
-			boolean retired = handleRetireFacilityService(request, mav);
+			boolean retired = handleRetireFacilityService(request);
 			if (retired)
-				return new ModelAndView(
-						new RedirectView("facilityService.list"));
+				return "redirect:facilityService.list";
 		}
-
+		
 		if (request.getParameter("facilityServiceId") != null) {
-//			oldfs = (Context
-//					.getService(BillingService.class))
-//					.getFacilityServicePrice(Integer.valueOf(request
-//							.getParameter("facilityServiceId")));
-//			log.info("oldddddddddddddddddddddddddddddddd "+oldfs);
 			
 			try {
-				mav.addObject("facilityService", (Context
-						.getService(BillingService.class))
-						.getFacilityServicePrice(Integer.valueOf(request
-								.getParameter("facilityServiceId"))));
+				model.addAttribute("facilityService", (Context.getService(BillingService.class))
+				        .getFacilityServicePrice(Integer.valueOf(request.getParameter("facilityServiceId"))));
 				
-			} catch (Exception e) {
-				log.error(">>>MOH>>BILLING>> The Facility Service with '"
-						+ request.getParameter("facilityServiceId")
-						+ "' cannot be found !");
+			}
+			catch (Exception e) {
+				log.error(">>>MOH>>BILLING>> The Facility Service with '" + request.getParameter("facilityServiceId")
+				        + "' cannot be found !");
 				e.printStackTrace();
-
-				return new ModelAndView(
-						new RedirectView("facilityService.list"));
+				
+				return "redirect:facilityService.list";
 			}
 		}
 		if (Context.getLocationService().getDefaultLocation() == null)
-			mav.addObject("locations", Context.getLocationService()
-					.getAllLocations());
+			model.addAttribute("locations", Context.getLocationService().getAllLocations());
 		else {
 			List<Location> locations = new ArrayList<Location>();
 			locations.add(Context.getLocationService().getDefaultLocation());
-			mav.addObject("locations", locations);
+			model.addAttribute("locations", locations);
 		}
-
-		return mav;
-
+		
+		return "/module/mohbilling/mohBillingFacilityServiceForm";
+		
 	}
 	
-	private static BillingService getService() {
-		return Context.getService(BillingService.class);
-	}
-
 	/**
 	 * @param request
 	 * @param mav
 	 * @return
 	 */
-	private boolean handleSaveFacilityService(HttpServletRequest request,
-			ModelAndView mav) {
-
+	private boolean handleSaveFacilityService(HttpServletRequest request) {
+		
 		FacilityServicePrice fs = null;
 		FacilityServicePrice oldfs = null;
 		
-		
-
 		try {
 			// check if the facilityService is NEW or if you are trying to
 			// UPDATE an
 			// existing facilityService
 			if (request.getParameter("facilityServiceId") != null) {
-				fs = Context.getService(BillingService.class)
-						.getFacilityServicePrice(
-								Integer.valueOf(request
-										.getParameter("facilityServiceId")));
+				fs = Context.getService(BillingService.class).getFacilityServicePrice(
+				    Integer.valueOf(request.getParameter("facilityServiceId")));
 				oldfs = fs;
-				
-				//log.info("lddddddddddddddddddddddddddddlOLDFULLPRICE "+oldfs.getFullPrice());
 				
 				FacilityServicePrice fspCopy = new FacilityServicePrice();
 				
@@ -145,9 +116,7 @@ public class MohBillingFacilityServiceFormController extends
 				fspCopy.setRetiredDate(new Date());
 				fspCopy.setRetireReason("price expired");
 				FacilityServicePriceUtil.createFacilityService(fspCopy);
-//				FacilityServicePriceUtil.retireFacilityServicePrice(copyOfexistingFsp, new Date(),"Price Expired");
-				
-				//log.info("vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv "+oldfs.getBillableServices().size());
+				//				FacilityServicePriceUtil.retireFacilityServicePrice(copyOfexistingFsp, new Date(),"Price Expired");
 				
 				//retire its bs
 				Set<BillableService> billableServices = oldfs.getBillableServices();
@@ -156,46 +125,38 @@ public class MohBillingFacilityServiceFormController extends
 					bs.setRetiredBy(Context.getAuthenticatedUser());
 					bs.setRetiredDate(new Date());
 				}
-
 				
 			} else
 				fs = new FacilityServicePrice();
-		} catch (Exception e) {
-			log.error(">>>MOH>>BILLING>> The Facility Service with '"
-					+ request.getParameter("facilityServiceId")
-					+ "' cannot be found !");
+		}
+		catch (Exception e) {
+			log.error(">>>MOH>>BILLING>> The Facility Service with '" + request.getParameter("facilityServiceId")
+			        + "' cannot be found !");
 			e.printStackTrace();
-
+			
 			return false;
 		}
-
+		
 		try {
 			// facilityService
 			fs.setName(request.getParameter("facilityServiceName"));
 			fs.setShortName(request.getParameter("facilityServiceShortName"));
-			fs.setDescription(request
-					.getParameter("facilityServiceDescription"));
-			fs.setCategory(request
-					.getParameter("facilityServiceCategory"));
-			fs.setStartDate(Context.getDateFormat().parse(
-					request.getParameter("facilityServiceStartDate")));
+			fs.setDescription(request.getParameter("facilityServiceDescription"));
+			fs.setCategory(request.getParameter("facilityServiceCategory"));
+			fs.setStartDate(Context.getDateFormat().parse(request.getParameter("facilityServiceStartDate")));
 			
 			// Letting the Full Price to be 0 when not entered.
 			if (request.getParameter("facilityServiceFullPrice") != null
-					&& !request.getParameter("facilityServiceFullPrice")
-							.equals(""))
-				fs.setFullPrice(BigDecimal.valueOf(Double.valueOf(request
-						.getParameter("facilityServiceFullPrice"))));
+			        && !request.getParameter("facilityServiceFullPrice").equals(""))
+				fs.setFullPrice(BigDecimal.valueOf(Double.valueOf(request.getParameter("facilityServiceFullPrice"))));
 			else
 				fs.setFullPrice(new BigDecimal(0));
-
+			
 			fs.setLocation(Context.getLocationService().getLocation(
-					Integer.valueOf(request
-							.getParameter("facilityServiceLocation"))));
+			    Integer.valueOf(request.getParameter("facilityServiceLocation"))));
 			fs.setConcept(Context.getConceptService().getConcept(
-					Integer.valueOf(request
-							.getParameter("facilityServiceRelatedConcept"))));
-
+			    Integer.valueOf(request.getParameter("facilityServiceRelatedConcept"))));
+			
 			// check if the facilityService is NEW or if you are trying to
 			// UPDATE an
 			// existing facilityService
@@ -203,10 +164,9 @@ public class MohBillingFacilityServiceFormController extends
 				fs.setCreatedDate(new Date());
 				fs.setCreator(Context.getAuthenticatedUser());
 				fs.setRetired(false);
-
-				FacilityServicePriceUtil.createFacilityService(fs);
-			} else{
 				
+				FacilityServicePriceUtil.createFacilityService(fs);
+			} else {
 				
 				FacilityServicePriceUtil.editFacilityService(fs);
 				
@@ -214,73 +174,67 @@ public class MohBillingFacilityServiceFormController extends
 				FacilityServicePriceUtil.cascadeUpdateFacilityService(fs);
 				
 			}
-
+			
 			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR,
-					"The Facility Service has been saved successfully !");
-		} catch (Exception e) {
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-					"The Facility Service has not been saved !");
+			    "The Facility Service has been saved successfully !");
+		}
+		catch (Exception e) {
+			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "The Facility Service has not been saved !");
 			log.error(">>>>MOH>>BILLING>> " + e.getMessage());
 			e.printStackTrace();
-
+			
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 	/**
 	 * @param request
 	 * @param mav
 	 * @return
 	 */
-	private boolean handleRetireFacilityService(HttpServletRequest request,
-			ModelAndView mav) {
-
+	private boolean handleRetireFacilityService(HttpServletRequest request) {
+		
 		FacilityServicePrice fs = null;
-
+		
 		try {
-			fs = Context.getService(BillingService.class)
-					.getFacilityServicePrice(
-							Integer.valueOf(request
-									.getParameter("facilityServiceId")));
-		} catch (Exception e) {
-			log.error(">>>MOH>>BILLING>> The Facility Service with '"
-					+ request.getParameter("facilityServiceId")
-					+ "' cannot be found !");
+			fs = Context.getService(BillingService.class).getFacilityServicePrice(
+			    Integer.valueOf(request.getParameter("facilityServiceId")));
+		}
+		catch (Exception e) {
+			log.error(">>>MOH>>BILLING>> The Facility Service with '" + request.getParameter("facilityServiceId")
+			        + "' cannot be found !");
 			e.printStackTrace();
-
+			
 			return false;
 		}
-
+		
 		try {
 			// facilityService
-
+			
 			fs.setRetiredDate(new Date());
 			fs.setRetiredBy(Context.getAuthenticatedUser());
 			fs.setRetired(true);
 			
+			//			getService().saveFacilityServicePrice(fscopy);		
 			
-			
-//			getService().saveFacilityServicePrice(fscopy);		
-			
-			
-
 			FacilityServicePriceUtil.retireFacilityServicePrice(fs, new Date(),
-					request.getParameter("facilityServiceRetireReason"));
-
+			    request.getParameter("facilityServiceRetireReason"));
+			
 			request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR,
-					"The Facility Service has been retired successfully !");
-		} catch (Exception e) {
-			request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR,
-					"The Facility Service has not been retired !");
+			    "The Facility Service has been retired successfully !");
+		}
+		catch (Exception e) {
+			request.getSession()
+			        .setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "The Facility Service has not been retired !");
 			log.error(">>>>MOH>>BILLING>> " + e.getMessage());
 			e.printStackTrace();
-
+			
 			return false;
 		}
-
+		
 		return true;
 	}
-
+	
 }
