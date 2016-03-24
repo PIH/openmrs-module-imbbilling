@@ -9,48 +9,40 @@ import javax.servlet.http.HttpServletResponse;
 import org.openmrs.module.mohbilling.businesslogic.FacilityServicePriceUtil;
 import org.openmrs.module.mohbilling.model.InsuranceCategory;
 import org.openmrs.web.WebConstants;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.ParameterizableViewController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author Yves GAKUBA
- * 
  */
-public class MohBillingFacilityServiceListController extends
-		ParameterizableViewController {
-
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(getViewName());
-
-		if (request.getParameter("facilityServiceId") != null)
-			if (!request.getParameter("facilityServiceId").equals(""))
-				FacilityServicePriceUtil
-						.addCategoryToFacilityService(FacilityServicePriceUtil.getFacilityServicePrice(Integer
-								.parseInt(request
-										.getParameter("facilityServiceId"))));
-
-		if (request.getParameter("addCategoryToFacility") != null)
-			if (request.getParameter("addCategoryToFacility").equals("UPDATE"))
-				if (FacilityServicePriceUtil
-						.addCategoryToAllFacilityServices(InsuranceCategory.BASE
-								.toString()))
-
-					request.getSession()
-							.setAttribute(WebConstants.OPENMRS_MSG_ATTR,
-									"The Facility Service Categories have been added successfully !");
+@Controller
+public class MohBillingFacilityServiceListController {
+	
+	@RequestMapping("/module/mohbilling/facilityService")
+	protected String handleRequestInternal(ModelMap model,
+	                                       @RequestParam(required = false, value = "facilityServiceId") String facilityServiceId,
+	                                       @RequestParam(required = false, value = "addCategoryToFacility") String addCategoryToFacility,
+	                                       HttpServletRequest request, HttpServletResponse response) throws Exception {
+		
+		if (facilityServiceId != null)
+			if (!facilityServiceId.equals(""))
+				FacilityServicePriceUtil.addCategoryToFacilityService(FacilityServicePriceUtil
+				        .getFacilityServicePrice(Integer.parseInt(request.getParameter("facilityServiceId"))));
+		
+		if (addCategoryToFacility != null)
+			if (addCategoryToFacility.equals("UPDATE"))
+				if (FacilityServicePriceUtil.addCategoryToAllFacilityServices(InsuranceCategory.BASE.toString()))
+					
+					request.getSession().setAttribute(WebConstants.OPENMRS_MSG_ATTR,
+					    "The Facility Service Categories have been added successfully !");
 				else
-					request.getSession().setAttribute(
-							WebConstants.OPENMRS_ERROR_ATTR,
-							"DID NOT Update AT ALL !");
-
-		mav.addObject("facilityServices",
-				FacilityServicePriceUtil.getFacilityServices(true));
-
-		return mav;
-
+					request.getSession().setAttribute(WebConstants.OPENMRS_ERROR_ATTR, "DID NOT Update AT ALL !");
+		
+		model.addAttribute("facilityServices", FacilityServicePriceUtil.getFacilityServices(true));
+		
+		return "/module/mohbilling/mohBillingFacilityServiceList";
+		
 	}
 }

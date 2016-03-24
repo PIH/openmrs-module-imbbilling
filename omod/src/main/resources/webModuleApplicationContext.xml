@@ -31,7 +31,6 @@
 				<prop key="module/mohbilling/insuranceServiceCategory.list">mohBillingInsuranceServiceCategoryListController</prop>
 				<prop key="module/mohbilling/insuranceServiceCategory.form">mohBillingInsuranceServiceCategoryFormController</prop>
 				<prop key="module/mohbilling/facilityService.form">mohBillingFacilityServiceFormController</prop>
-				<prop key="module/mohbilling/facilityService.list">mohBillingFacilityServiceListController</prop>
 				<prop key="module/mohbilling/facilityServiceByInsuranceCompany.list">mohBillingFacilityServiceByInsuranceCompanyListController</prop>
 				<prop key="module/mohbilling/billableService.form">mohBillingBillableServiceFormController</prop>
 				<prop key="module/mohbilling/billableService.list">mohBillingBillableServiceListController</prop>
@@ -106,10 +105,6 @@
 
 	<bean id="mohBillingFacilityServiceFormController" class="org.openmrs.module.mohbilling.web.controller.MohBillingFacilityServiceFormController">
 		<property name="viewName"><value>/module/mohbilling/mohBillingFacilityServiceForm</value></property>
-	</bean>
-
-	<bean id="mohBillingFacilityServiceListController" class="org.openmrs.module.mohbilling.web.controller.MohBillingFacilityServiceListController">
-		<property name="viewName"><value>/module/mohbilling/mohBillingFacilityServiceList</value></property>
 	</bean>
 
 	<bean id="mohBillingFacilityServiceByInsuranceCompanyListController" class="org.openmrs.module.mohbilling.web.controller.MohBillingFacilityServiceByInsuranceCompanyListController">
