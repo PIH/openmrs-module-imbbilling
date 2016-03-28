@@ -41,7 +41,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class FileExporter {
-	private Log log = LogFactory.getLog(this.getClass());
+
+	private static Log log = LogFactory.getLog(FileExporter.class);
 
 	/**
 	 * gets a list and export it in csv/pdf
@@ -901,7 +902,7 @@ public class FileExporter {
      * Adds the health facility logo to the document at the current position
      * @return true if this was successful, false if it was unable to add the image
      */
-    public boolean addHealthFacilityLogoToDocument(Document document) {
+    public static boolean addHealthFacilityLogoToDocument(Document document) {
         Image image = getImage();
         if (image != null) {
             try {
@@ -913,9 +914,9 @@ public class FileExporter {
             }
         }
         return false;
-    }
+   }
 
-    public Image getImage() {
+    public static Image getImage() {
         String imagePath = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_LOGO, null);
         try {
             Image image = Image.getInstance(imagePath);
@@ -931,7 +932,7 @@ public class FileExporter {
     /**
      * @return the name, address, and email of the facility as configured in the global properties, on three lines
      */
-    public String getAddress(){
+    public static String getAddress(){
         String facilityName = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_NAME, "");
         String facilityPhysicAddress = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_PHYSICAL_ADDRESS, "");
         String facilityEmail = getGlobalProperty(BillingConstants.GLOBAL_PROPERTY_HEALTH_FACILITY_EMAIL, "");
