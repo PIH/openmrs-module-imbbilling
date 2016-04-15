@@ -77,7 +77,7 @@
 		<input type="hidden" name="formStatus" id="formStatusId" value="" />
 		<table>
 			<tr>
-				<td width="10%">When?</td>
+				<td width="10%">When created?</td>
 				<td>
 					<table>
 						<tr>
@@ -132,8 +132,8 @@
 				              <option value="14">14</option>
 				              <option value="15">15</option>
 				              <option value="16">16</option>
-				              <option value="2">17</option>
-				              <option value="17">18</option>
+				              <option value="17">17</option>
+				              <option value="18">18</option>
 				              <option value="19">19</option>
 				              <option value="20">20</option>
 				              <option value="21">21</option>
@@ -141,9 +141,9 @@
 				              <option value="23">23</option>
 				              <option value="24">24</option>
 				              <option value="25">25</option>
-				              <option value="25">26</option>
-				              <option value="26">27</option>
-				              <option value="27">28</option>
+				              <option value="26">26</option>
+				              <option value="27">27</option>
+				              <option value="29">28</option>
 				              <option value="29">29</option>
 				              <option value="30">30</option>
 				              <option value="31">31</option>
@@ -177,6 +177,7 @@
 				              <option value="59">59</option>
 				             </select>
 				             </td>
+				             <td>				            
 						</tr>
 						<tr>
 							<td>On Or Before <input type="text" size="11"
@@ -228,8 +229,8 @@
 				              <option value="14">14</option>
 				              <option value="15">15</option>
 				              <option value="16">16</option>
-				              <option value="2">17</option>
-				              <option value="17">18</option>
+				              <option value="17">17</option>
+				              <option value="18">18</option>
 				              <option value="19">19</option>
 				              <option value="20">20</option>
 				              <option value="21">21</option>
@@ -237,9 +238,9 @@
 				              <option value="23">23</option>
 				              <option value="24">24</option>
 				              <option value="25">25</option>
-				              <option value="25">26</option>
-				              <option value="26">27</option>
-				              <option value="27">28</option>
+				              <option value="26">26</option>
+				              <option value="27">27</option>
+				              <option value="29">28</option>
 				              <option value="29">29</option>
 				              <option value="30">30</option>
 				              <option value="31">31</option>
@@ -271,9 +272,9 @@
 				              <option value="57">57</option>
 				              <option value="58">58</option>
 				              <option value="59">59</option>
-				             </select>
-						</td>
-						</tr>
+     		             </select>
+						</td>						
+					</tr>
 					</table>
 				</td>
 				<td>Collector :</td>
@@ -350,7 +351,9 @@
 			<tr>
 				<th class="columnHeader">No
 				</th>
-				<th class="columnHeader">Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<th class="columnHeader">Date Created&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				</th>
+				<th class="columnHeader">Date Received&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				</th>
 				<th class="columnHeader">Patient
 				</th>
@@ -366,7 +369,8 @@
 				varStatus="status">
 				<tr>
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">${status.count}</td>
-					<td class="rowValue ${(status.count%2!=0)?'even':''}"><fmt:formatDate pattern="yyyy-MM-dd hh:mm" value="${payment.createdDate}" /></td>
+					<td class="rowValue ${(status.count%2!=0)?'even':''}"><fmt:formatDate pattern="dd/MM/yyyy HH:mm:ss" value="${payment.createdDate}" /></td>
+					<td class="rowValue ${(status.count%2!=0)?'even':''}"><fmt:formatDate pattern="dd/MM/yyyy" value="${payment.dateReceived}" /></td>
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">${payment.patientBill.beneficiary.patient.familyName}&nbsp;${payment.patientBill.beneficiary.patient.givenName}</td>
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">${payment.collector.person.familyName}&nbsp;${payment.collector.person.givenName}</td>
 					<td class="rowValue ${(status.count%2!=0)?'even':''}">${payment.amountPaid}</td>

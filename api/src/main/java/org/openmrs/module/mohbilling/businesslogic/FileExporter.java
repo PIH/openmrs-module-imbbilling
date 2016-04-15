@@ -290,7 +290,7 @@ public class FileExporter {
 		
 		
 	}
-	public void pdfPrintPaymentsReport(HttpServletRequest request,	HttpServletResponse response,List<BillPayment> payments, String filename, String title) throws Exception {
+	public void pdfPrintPaymentsReport(HttpServletRequest request,	HttpServletResponse response,List<BillPayment> payments, String filename, String title,String startDate,String endDate) throws Exception {
 
 		Document document = new Document();
 		
@@ -322,7 +322,7 @@ public class FileExporter {
 		titleFont.addFont(new Font(FontFamily.TIMES_ROMAN, 10, Font.BOLD));
 
 		// Define my Table;
-		float[] colsWidth = { 0.5f, 2f, 3f, 2f, 2f};
+		float[] colsWidth = { 0.5f, 2f, 2f, 3f, 2f, 2f};
 		PdfPTable table = new PdfPTable(colsWidth);
 		table.setWidthPercentage(100f);
 		BaseColor bckGroundTitle = new BaseColor(255, 255, 255);
@@ -352,14 +352,35 @@ public class FileExporter {
 		pa.add(chk);
 		pa.setAlignment(Element.ALIGN_CENTER);
 		document.add(pa);
-		document.add(new Paragraph("\n"));	
+		document.add(new Paragraph("\n"));
+		
+		Chunk chk2 = new Chunk("Start date: "+startDate);
+		chk2.setFont(new Font(FontFamily.TIMES_ROMAN, 8, Font.BOLD));
+		Paragraph pa2 = new Paragraph();
+		pa2.add(chk2);
+		pa2.setAlignment(Element.ALIGN_LEFT);
+		document.add(pa2);
+		
+		Chunk chk3 = new Chunk("End date: "+endDate);
+		chk3.setFont(new Font(FontFamily.TIMES_ROMAN, 8, Font.BOLD));
+		Paragraph pa3 = new Paragraph();
+		pa3.add(chk3);
+		pa3.setAlignment(Element.ALIGN_LEFT);
+		document.add(pa3);
+		document.add(new Paragraph("\n"));
+		
+		
 
 		// table Header
 		PdfPCell cell = new PdfPCell(boldFont.process("No"));
 		cell.setBackgroundColor(bckGroundTitle);
 		table.addCell(cell);
 
-		cell = new PdfPCell(boldFont.process("Date"));
+		cell = new PdfPCell(boldFont.process("Date Created"));
+		cell.setBackgroundColor(bckGroundTitle);
+		table.addCell(cell);
+		
+		cell = new PdfPCell(boldFont.process("Date Received"));
 		cell.setBackgroundColor(bckGroundTitle);
 		table.addCell(cell);
 		
@@ -375,7 +396,8 @@ public class FileExporter {
 		cell.setBackgroundColor(bckGroundTitle);
 		table.addCell(cell);
 
-		DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat df2 = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 		
 		int number=0;
 		Double total = 0.0;
@@ -383,6 +405,9 @@ public class FileExporter {
 			number++;
 			total+=pay.getAmountPaid().doubleValue();
 			cell = new PdfPCell(fontselector.process(""+number));
+			table.addCell(cell);
+			
+			cell = new PdfPCell(fontselector.process(""+df2.format(pay.getCreatedDate())));
 			table.addCell(cell);
 
 			cell = new PdfPCell(fontselector.process(""+df.format(pay.getDateReceived())));
@@ -404,6 +429,10 @@ public class FileExporter {
 		
 //		PdfPTable table1 = new PdfPTable(1);
 //		table1.setWidthPercentage(109f);
+		
+		cell = new PdfPCell(boldFont.process(""));
+		cell.setBorder(Rectangle.NO_BORDER);
+		table.addCell(cell);
 		
 		cell = new PdfPCell(boldFont.process(""));
 		cell.setBorder(Rectangle.NO_BORDER);

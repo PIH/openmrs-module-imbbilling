@@ -95,11 +95,11 @@ public class MohBillingCohortBuilderFormController extends
 					+ (user.getPersonName().getGivenName() != null ? user
 							.getPersonName().getGivenName() : "");
 
-			if (startDateStr != null) {
+			if (startDateStr != null && !startDateStr.equals("")) {
 				startDate = (Date) formatter.parse(startDateStr);
 			}
 
-			if (endDateStr != null) {
+			if (endDateStr != null && !endDateStr.equals("")) {
 				endDate = (Date) formatter.parse(endDateStr);
 			}
 

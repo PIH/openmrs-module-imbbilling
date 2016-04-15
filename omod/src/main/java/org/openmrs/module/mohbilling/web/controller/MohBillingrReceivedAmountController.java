@@ -170,6 +170,10 @@ public class MohBillingrReceivedAmountController extends
 			}
 			request.getSession().setAttribute("payments" , reportedPayments);
 			
+			request.getSession().setAttribute("depositStartDate" , startDateStr);
+			
+			request.getSession().setAttribute("depositEndDate" ,  endDateStr);
+			
 			mav.addObject("TotalReceivedAmount", TotalReceivedAmount);
 			
 
@@ -179,10 +183,13 @@ public class MohBillingrReceivedAmountController extends
 
 			List<BillPayment> payments = (List<BillPayment>) session.getAttribute("payments");
 			
+			String startDate=session.getAttribute("depositStartDate").toString();
+			String endDate=session.getAttribute("depositEndDate").toString();
+			
 			FileExporter fexp = new FileExporter();
 			String fileName = "Deposit Report.pdf";
 
-			fexp.pdfPrintPaymentsReport(request, response, payments, fileName, "Deposit");	
+			fexp.pdfPrintPaymentsReport(request, response, payments, fileName, "Deposit",startDate,endDate);	
 		}
 		mav.setViewName(getViewName());
 
