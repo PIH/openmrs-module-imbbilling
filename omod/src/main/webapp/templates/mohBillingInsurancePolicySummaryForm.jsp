@@ -1,3 +1,5 @@
+<%@ taglib prefix="billingtag" uri="/WEB-INF/view/module/mohbilling/taglibs/billingtag.tld" %>
+
 <div class="box">
 	
 	<div style="float: left; width: 65%">
@@ -77,3 +79,29 @@
 	<div style="clear: both;"></div>
 	
 </div>
+
+<!-- Total Rest Amount -->
+
+<b class="boxHeader">Total Rest Amount (Rwf) 	</b>
+<div class="box">
+	<table width="99%">
+		<c:if test="${empty patientBills}"><tr><td><center>No Patient Bill found !</center></td></tr></c:if>
+		<c:set value="0" var="totalRestAmount"/>
+		<c:forEach items="${patientBills}" var="pbr" varStatus="status">			
+					<c:set value="${billingtag:amountNotPaidForPatientBill(pbr.patientBillId)}" var="restAmount"/>
+                    <c:set value="${totalRestAmount+restAmount}" var="totalRestAmount"/>			
+		</c:forEach>
+		<tr>						
+			<c:choose>
+    				<c:when test="${totalRestAmount > 0}">
+       					<td align="right"><b>${totalRestAmount}</b></td>	
+    				</c:when>    
+    			    <c:otherwise>
+                      <td align="right"><b>No Rest Amount</b></td>
+    			   </c:otherwise>
+			</c:choose>							
+		</tr>
+</table>
+</div>
+
+<!-- End of Total Rest Amount -->

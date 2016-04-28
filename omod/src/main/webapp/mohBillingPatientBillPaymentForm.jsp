@@ -126,6 +126,7 @@
 		</tr>
 		<c:if test="${empty patientBills}"><tr><td colspan="9"><center>No Patient Bill found !</center></td></tr></c:if>
 		<c:set value="0" var="index"/>
+		<c:set value="0" var="totalRestAmount"/>
 		<c:forEach items="${patientBills}" var="pb" varStatus="status">
 			<tr>
 				<c:choose>
@@ -147,7 +148,22 @@
 				<td class="rowValue ${(status.count%2!=0)?'even':''}">${pb.status}</td>
 				<td class="rowValue ${(status.count%2!=0)?'even':''}"><a href="patientBillPayment.form?patientBillId=${pb.patientBillId}&ipCardNumber=${pb.beneficiary.policyIdNumber}">View<!-- ${pb.patientBillId} --></a></td>
 			</tr>
+			
+			<c:set value="${billingtag:amountNotPaidForPatientBill(pb.patientBillId)}" var="restAmount"/>
+            <c:set value="${totalRestAmount+restAmount}" var="totalRestAmount"/>
 		</c:forEach>
+		
+		<tr>						
+			<c:choose>
+    				<c:when test="${totalRestAmount > 0}">
+       					<th class="columnHeader" colspan="6"><b>Total Rest Amount (Rwf)</b></th> <th class="columnHeader" align="right"><b>${totalRestAmount}</b></th><th class="columnHeader"></th><th class="columnHeader"></th>	
+    				</c:when>    
+    			    <c:otherwise>
+                      <th class="columnHeader" colspan="6"><b>Total Rest Amount (Rwf)</b></th> <th class="columnHeader" align="right"><b>No Rest Amount</b></th><th class="columnHeader"></th><th class="columnHeader"></th>	
+    				</c:otherwise>
+			</c:choose>							
+		</tr>
+		
 	</table>
 </div>
 

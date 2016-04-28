@@ -5,6 +5,7 @@ package org.openmrs.module.mohbilling.web.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -64,7 +65,12 @@ public class MohBillingBillingFormController extends
 			Beneficiary ben = InsurancePolicyUtil
 					.getBeneficiaryByPolicyIdNo(request
 							.getParameter("ipCardNumber"));
+			
 			mav.addObject("beneficiary", ben);
+			
+			List<PatientBill> patientBills = PatientBillUtil.getBillsByBeneficiary(ben);
+			mav.addObject("patientBills", patientBills);
+			
 
 			InsurancePolicy ip = InsurancePolicyUtil
 					.getInsurancePolicyByBeneficiary(ben);
