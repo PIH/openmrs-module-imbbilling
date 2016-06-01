@@ -5,7 +5,7 @@
 <%@ include file="templates/mohBillingLocalHeader.jsp"%>
 
 <script type="text/javascript">
-		var $bill = jQuery.noConflict();
+		var $j = jQuery.noConflict();
 		
 		// Checking whether the User wants to delete the data
 		function submitData(servId){
@@ -13,10 +13,10 @@
 			var hrefValue = "thirdParty.form?deleteThirdParty=true&deleteThirdPartyId=" + servId;
 			
 			if(confirm("<spring:message code='mohbilling.general.delete.confirm'/>"))
-				$bill(serv).attr("href", hrefValue);
+				$j(serv).attr("href", hrefValue);
 		}
 
-		$bill(document).ready(function(){
+		$j(document).ready(function(){
 			
 		});
 </script>

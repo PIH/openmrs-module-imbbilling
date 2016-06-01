@@ -1,8 +1,11 @@
 <%@ include file="/WEB-INF/template/include.jsp"%>
 <%@ include file="/WEB-INF/template/header.jsp"%>
+<!-- <c:set var="DO_NOT_INCLUDE_JQUERY" value="true"/> -->
 <openmrs:require privilege="Manage Billing Reports" otherwise="/login.htm" redirect="/mohbilling/cohort.form" />
 <openmrs:htmlInclude file="/moduleResources/mohbilling/scripts/jquery.PrintArea.js" />
 <openmrs:htmlInclude file="/scripts/calendar/calendar.js" />
+
+
 <%@ taglib prefix="billingtag"
 	uri="/WEB-INF/view/module/mohbilling/taglibs/billingtag.tld"%>
 
@@ -11,17 +14,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <script type="text/javascript" language="JavaScript">
-	var $bill = jQuery.noConflict();
+	//var $j = jQuery.noConflict();
 
-	$bill(document).ready(function() {
-		$bill('.meta').hide();
-		$bill('#submitId').click(function() {
-			$bill('#formStatusId').val("clicked");
+	$j(document).ready(function() {
+		$j('.meta').hide();
+		$j('#submitId').click(function() {
+			$j('#formStatusId').val("clicked");
 		});
-		$bill("input#print_button").click(function() {
-			$bill('.meta').show();
-			$bill("div.printarea").printArea();
-			$bill('.meta').hide();
+		$j("input#print_button").click(function() {
+			$j('.meta').show();
+			$j("div.printarea").printArea();
+			$j('.meta').hide();
+		});
+		$j("#startTime").timepicker({ 
+			ampm: false, 
+			timeFormat: 'hh:mm', 
+			showSecond: false, 
+			hourGrid: 6, 
+			minuteGrid: 10, 
+			secondGrid: 10 
+		});
+		$j("#endTime").timepicker({ 
+			ampm: false, 
+			timeFormat: 'hh:mm', 
+			showSecond: false, 
+			hourGrid: 6, 
+			minuteGrid: 10, 
+			secondGrid: 10 
 		});
 	});
 </script>
@@ -85,7 +104,7 @@
 								value="${startDate}" name="startDate"
 								onclick="showCalendar(this)" /></td>
 							<td>
-							<select name="startHour">
+							<!-- <select name="startHour">
 					          <option value="00">00</option>
 				              <option value="01">01</option>
 				              <option value="02">02</option>
@@ -176,6 +195,8 @@
 				              <option value="58">58</option>
 				              <option value="59">59</option>
 				             </select>
+				         -->     <input type="text" id="startTime" name="startTime" size="5" value="00:00"/>
+     		            
 				             </td>
 				             <td>				            
 						</tr>
@@ -183,7 +204,7 @@
 							<td>On Or Before <input type="text" size="11"
 								value="${endDate}" name="endDate" onclick="showCalendar(this)" /></td>
 								<td>
-							<select name="endHour">
+							<!-- <select name="endHour">
 					          <option value="00">00</option>
 				              <option value="01">01</option>
 				              <option value="02">02</option>
@@ -273,6 +294,8 @@
 				              <option value="58">58</option>
 				              <option value="59">59</option>
      		             </select>
+     		             --><input type="text" id="endTime" name="endTime" size="5" value="00:00"/>
+     		            
 						</td>						
 					</tr>
 					</table>

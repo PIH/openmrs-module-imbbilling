@@ -14,17 +14,33 @@
 <openmrs:htmlInclude file="/moduleResources/mohbilling/demo_table.css" />
 
 <script type="text/javascript" language="JavaScript">
-	var $bill = jQuery.noConflict();
+	//var $j = jQuery.noConflict();
 
-	$bill(document).ready(function() {
-		$bill('.meta').hide();
-		$bill('#submitId').click(function() {
-			$bill('#formStatusId').val("clicked");
+	$j(document).ready(function() {
+		$j('.meta').hide();
+		$j('#submitId').click(function() {
+			$j('#formStatusId').val("clicked");
 		});
-		$bill("input#print_button").click(function() {
-			$bill('.meta').show();
-			$bill("div.printarea").printArea();
-			$bill('.meta').hide();
+		$j("input#print_button").click(function() {
+			$j('.meta').show();
+			$j("div.printarea").printArea();
+			$j('.meta').hide();
+		});
+		$j("#startTime").timepicker({ 
+			ampm: false, 
+			timeFormat: 'hh:mm', 
+			showSecond: false, 
+			hourGrid: 6, 
+			minuteGrid: 10, 
+			secondGrid: 10 
+		});
+		$j("#endTime").timepicker({ 
+			ampm: false, 
+			timeFormat: 'hh:mm', 
+			showSecond: false, 
+			hourGrid: 6, 
+			minuteGrid: 10, 
+			secondGrid: 10 
 		});
 	});
 </script>
@@ -96,7 +112,7 @@ var $t = jQuery.noConflict();
 								value="${startDate}" name="startDate"
 								onclick="showCalendar(this)" /></td>
 							<td>
-							<select name="startHour">
+							<!-- <select name="startHour">
 					          <option value="00">00</option>
 				              <option value="01">01</option>
 				              <option value="02">02</option>
@@ -143,8 +159,8 @@ var $t = jQuery.noConflict();
 				              <option value="14">14</option>
 				              <option value="15">15</option>
 				              <option value="16">16</option>
-				              <option value="2">17</option>
-				              <option value="17">18</option>
+				              <option value="17">17</option>
+				              <option value="18">18</option>
 				              <option value="19">19</option>
 				              <option value="20">20</option>
 				              <option value="21">21</option>
@@ -152,9 +168,9 @@ var $t = jQuery.noConflict();
 				              <option value="23">23</option>
 				              <option value="24">24</option>
 				              <option value="25">25</option>
-				              <option value="25">26</option>
-				              <option value="26">27</option>
-				              <option value="27">28</option>
+				              <option value="26">26</option>
+				              <option value="27">27</option>
+				              <option value="29">28</option>
 				              <option value="29">29</option>
 				              <option value="30">30</option>
 				              <option value="31">31</option>
@@ -187,13 +203,16 @@ var $t = jQuery.noConflict();
 				              <option value="58">58</option>
 				              <option value="59">59</option>
 				             </select>
+				         -->     <input type="text" id="startTime" name="startTime" size="5" value="00:00"/>
+     		            
 				             </td>
+				             <td>				            
 						</tr>
 						<tr>
 							<td>On Or Before <input type="text" size="11"
 								value="${endDate}" name="endDate" onclick="showCalendar(this)" /></td>
 								<td>
-							<select name="endHour">
+							<!-- <select name="endHour">
 					          <option value="00">00</option>
 				              <option value="01">01</option>
 				              <option value="02">02</option>
@@ -239,8 +258,8 @@ var $t = jQuery.noConflict();
 				              <option value="14">14</option>
 				              <option value="15">15</option>
 				              <option value="16">16</option>
-				              <option value="2">17</option>
-				              <option value="17">18</option>
+				              <option value="17">17</option>
+				              <option value="18">18</option>
 				              <option value="19">19</option>
 				              <option value="20">20</option>
 				              <option value="21">21</option>
@@ -248,9 +267,9 @@ var $t = jQuery.noConflict();
 				              <option value="23">23</option>
 				              <option value="24">24</option>
 				              <option value="25">25</option>
-				              <option value="25">26</option>
-				              <option value="26">27</option>
-				              <option value="27">28</option>
+				              <option value="26">26</option>
+				              <option value="27">27</option>
+				              <option value="29">28</option>
 				              <option value="29">29</option>
 				              <option value="30">30</option>
 				              <option value="31">31</option>
@@ -282,8 +301,10 @@ var $t = jQuery.noConflict();
 				              <option value="57">57</option>
 				              <option value="58">58</option>
 				              <option value="59">59</option>
-				             </select>
-						</td>
+     		             </select>
+     		             --><input type="text" id="endTime" name="endTime" size="5" value="00:00"/>
+     		            
+						</td>	
 						</tr>
 					</table>
 				</td>

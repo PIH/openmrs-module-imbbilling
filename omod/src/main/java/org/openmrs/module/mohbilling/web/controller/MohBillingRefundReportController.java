@@ -11,7 +11,6 @@ import javax.servlet.http.HttpSession;
 
 import org.openmrs.User;
 import org.openmrs.api.context.Context;
-
 import org.openmrs.module.mohbilling.businesslogic.FileExporter;
 import org.openmrs.module.mohbilling.businesslogic.PatientBillUtil;
 import org.openmrs.module.mohbilling.businesslogic.ReportsUtil;
@@ -33,13 +32,17 @@ public class MohBillingRefundReportController extends 	ParameterizableViewContro
 
 		String insuranceStr = null, startDateStr = null, endDateStr = null, serviceId = null, cashCollector = null, startHourStr = null, startMinute = null, endHourStr = null, endMinuteStr = null;
 	
-				startHourStr = request.getParameter("startHour");
+				/*startHourStr = request.getParameter("startHour");
 				startMinute = request.getParameter("startMinute");
 				endHourStr = request.getParameter("endHour");
-				endMinuteStr = request.getParameter("endMinute");
+				endMinuteStr = request.getParameter("endMinute");*/
+		
+		String startTimePar = request.getParameter("startTime");
+		String endTimePar = request.getParameter("endTime");
 
-				String startTimeStr = startHourStr + ":" + startMinute + ":00";
-				String endTimeStr = endHourStr + ":" + endMinuteStr + ":59";
+
+				String startTimeStr = startTimePar + ":00";
+				String endTimeStr = endTimePar + ":59";
 				Date startDate = null, endDate = null;
 				if (request.getParameter("startDate") != null
 						&& !request.getParameter("startDate").equals("")) {

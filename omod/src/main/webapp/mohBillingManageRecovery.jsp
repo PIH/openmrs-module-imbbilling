@@ -7,7 +7,7 @@
 <openmrs:require privilege="Manage Recovery" otherwise="/login.htm" redirect="/module/mohbilling/manageRecovery.form" />
 
 <script language="javascript" type="text/javascript">
-	var $bill = jQuery.noConflict();
+	var $j = jQuery.noConflict();
 	
 	<openmrs:formatDate date="${facilityService.startDate}" type="string"/>
 	

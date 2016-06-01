@@ -30,54 +30,54 @@
 </style>
 
 <script type="text/javascript">
-	var $bill = jQuery.noConflict();
+	var $j = jQuery.noConflict();
 
 	var fieldGroupCount = 0;
 	var count = 1;
 
-	$bill(document).ready(function() {
+	$j(document).ready(function() {
 
-		$bill('.beneficiariesC').hide();
+		$j('.beneficiariesC').hide();
 
-		$bill('#rateDisplay').hide();
+		$j('#rateDisplay').hide();
 
-		$bill('#addBeneficiaryId').click(function() {
+		$j('#addBeneficiaryId').click(function() {
 			var i = 1;
 			for (i = 1; i <= 10; i++) {
-				if ($bill('#beneficiaryI_' + i).is(':hidden')) {
-					$bill('#beneficiaryI_' + i).show(200);
+				if ($j('#beneficiaryI_' + i).is(':hidden')) {
+					$j('#beneficiaryI_' + i).show(200);
 					break;
 				}
 			}
 		});
 
-		$bill('.redbox').click(function() {
+		$j('.redbox').click(function() {
 			var deleteIdVar = this.id;
 			var idArr = new Array();
 			idArr = deleteIdVar.split("_");
 			var idVar = idArr[1];
 			var selectorElmt = 'beneficiaryI_' + idVar;
-			$bill('#' + selectorElmt).hide(200);
+			$j('#' + selectorElmt).hide(200);
 		});
 
-		$bill('#submitButtonId').click(function() {
+		$j('#submitButtonId').click(function() {
 			var i = 1;
 			for (i = 1; i <= 10; i++) {
-				if ($bill('#beneficiaryI_' + i).is(':hidden')) {
-					$bill('#beneficiaryI_' + i).remove();
+				if ($j('#beneficiaryI_' + i).is(':hidden')) {
+					$j('#beneficiaryI_' + i).remove();
 				}
 			}
 		});
 
-		if ($bill('#hasThirdPart').is(':checked'))
-			$bill('#rateDisplay').show();
+		if ($j('#hasThirdPart').is(':checked'))
+			$j('#rateDisplay').show();
 		
-		$bill('#hasThirdPart').change(function() {
+		$j('#hasThirdPart').change(function() {
 
-			if ($bill('#hasThirdPart').is(':checked'))
-				$bill('#rateDisplay').show();
+			if ($j('#hasThirdPart').is(':checked'))
+				$j('#rateDisplay').show();
 			else
-				$bill('#rateDisplay').hide();
+				$j('#rateDisplay').hide();
 		});
 
 	});

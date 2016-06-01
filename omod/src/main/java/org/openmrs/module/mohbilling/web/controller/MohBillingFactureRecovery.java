@@ -63,14 +63,18 @@ public class MohBillingFactureRecovery extends ParameterizableViewController {
 		LinkedHashMap<PatientBill, PatientInvoice> billMap = new LinkedHashMap<PatientBill, PatientInvoice>();
 			
 		if (request.getParameter("formStatus") != null && !request.getParameter("formStatus").equals("")) {
-			
+			/*
 			startHourStr = request.getParameter("startHour");
 			startMinute = request.getParameter("startMinute"); 
 			endHourStr = request.getParameter("endHour");
-			endMinuteStr = request.getParameter("endMinute");
+			endMinuteStr = request.getParameter("endMinute");*/
+			
+			String startTimePar = request.getParameter("startTime");
+			String endTimePar = request.getParameter("endTime");
 
-			String startTimeStr = startHourStr + ":" + startMinute + ":00";
-			String endTimeStr = endHourStr + ":" + endMinuteStr + ":59";
+
+			String startTimeStr = startTimePar + ":00";
+			String endTimeStr = endTimePar + ":59";
 			Date startDate = null, endDate = null;
 			if(request.getParameter("startDate") != null && !request.getParameter("startDate").equals("")) {
 				startDateStr = request.getParameter("startDate");

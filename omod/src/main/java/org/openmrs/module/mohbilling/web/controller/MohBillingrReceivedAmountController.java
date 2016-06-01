@@ -50,20 +50,26 @@ public class MohBillingrReceivedAmountController extends
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		// Date startDate = null;
 
-		String patientIdStr = null, insuranceStr = null, 
+		/*String patientIdStr = null, insuranceStr = null, 
 				startDateStr = null, endDateStr = null, serviceId = null, 
 				cashCollector = null, startHourStr = null, startMinute = null, 
-				endHourStr = null, endMinuteStr = null;
+				endHourStr = null, endMinuteStr = null;*/
+		String patientIdStr = null, insuranceStr = null, 
+				startDateStr = null, endDateStr = null, serviceId = null, 
+				cashCollector = null, startTimePar = null, 
+				endTimePar = null;
 
 		if (request.getParameter("formStatus") != null && !request.getParameter("formStatus").equals("")) {
 			
-			startHourStr = request.getParameter("startHour");
+			/*startHourStr = request.getParameter("startHour");
 			startMinute = request.getParameter("startMinute"); 
 			endHourStr = request.getParameter("endHour");
-			endMinuteStr = request.getParameter("endMinute");
+			endMinuteStr = request.getParameter("endMinute");*/
+			startTimePar = request.getParameter("startTime");
+			endTimePar = request.getParameter("endTime");
 
-			String startTimeStr = startHourStr + ":" + startMinute + ":00";
-			String endTimeStr = endHourStr + ":" + endMinuteStr + ":59";
+			String startTimeStr = startTimePar + ":00";
+			String endTimeStr = endTimePar + ":59";
 			Date startDate = null, endDate = null;
 			if(request.getParameter("startDate") != null && !request.getParameter("startDate").equals("")) {
 				startDateStr = request.getParameter("startDate");

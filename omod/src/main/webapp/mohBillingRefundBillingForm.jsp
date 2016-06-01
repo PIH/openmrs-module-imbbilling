@@ -4,9 +4,9 @@
 
 <script type="text/javascript">
 
-	var $bill = jQuery.noConflict();
+	var $j = jQuery.noConflict();
 
-	var index=$bill("#index").val();
+	var index=$j("#index").val();
 
 	function deleteRow(serviceId,rowNumber,patientBillId,cardNumber) {
 
@@ -28,8 +28,8 @@
 			            rowCount--;
 			            i--;
 
-			            $bill("#billableService_"+serviceId).removeClass("selectedService");
-			    	    $bill("#billableService_"+serviceId).addClass("unselectedService");
+			            $j("#billableService_"+serviceId).removeClass("selectedService");
+			    	    $j("#billableService_"+serviceId).addClass("unselectedService");
 			        }
 
 			    }
@@ -40,7 +40,7 @@
 		        alert(e);
 		    }
     	}else{
-    		$bill(serv).attr("href", hrefValue);
+    		$j(serv).attr("href", hrefValue);
     	}
 	}
 
@@ -48,7 +48,7 @@
 		try {
 			var bill=0.00;
 			var j=0;
-			var index=$bill("#index").val();
+			var index=$j("#index").val();
 			
 		    while(j<index){
 			   	if(document.getElementById("servicePrice_"+j)!=null && document.getElementById("servicePrice_"+j)!="undefined"){
@@ -60,7 +60,7 @@
 			}
 
 		    document.getElementById("pBill").innerHTML=bill.toFixed(2)+" RWF";
-		    $bill("#totalAmount").val(bill.toFixed(2));
+		    $j("#totalAmount").val(bill.toFixed(2));
 	    }catch(e) {
 	        alert(e);
 	    }
@@ -69,7 +69,7 @@
 	function  savePatientBill(){
 		if(confirm("Are you sure you want to save?")){
 			//set the number of services which has been clicked
-			$bill("#numberOfServicesClicked").val(index);
+			$j("#numberOfServicesClicked").val(index);
 
 			//submit the patient bill form
 			document.getElementById("form_save_patient_bill").submit();

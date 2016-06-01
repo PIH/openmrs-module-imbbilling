@@ -91,15 +91,16 @@
 					<c:set value="${billingtag:amountNotPaidForPatientBill(pbr.patientBillId)}" var="restAmount"/>
                     <c:set value="${totalRestAmount+restAmount}" var="totalRestAmount"/>			
 		</c:forEach>
-		<tr>						
-			<c:choose>
+		<tr>
+		 	<td align="right"><b>${totalRestAmount}</b></td>						
+			<%-- <c:choose>
     				<c:when test="${totalRestAmount > 0}">
        					<td align="right"><b>${totalRestAmount}</b></td>	
     				</c:when>    
     			    <c:otherwise>
                       <td align="right"><b>No Rest Amount</b></td>
     			   </c:otherwise>
-			</c:choose>							
+			</c:choose> --%>							
 		</tr>
 </table>
 </div>

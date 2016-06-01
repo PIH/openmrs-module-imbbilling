@@ -153,15 +153,16 @@
             <c:set value="${totalRestAmount+restAmount}" var="totalRestAmount"/>
 		</c:forEach>
 		
-		<tr>						
-			<c:choose>
+		<tr>
+			<th class="columnHeader" colspan="6"><b>Total Rest Amount (Rwf)</b></th> <th class="columnHeader rowValue right"><b>${totalRestAmount}</b></th><th class="columnHeader"></th><th class="columnHeader"></th>	
+    		<%-- <c:choose>
     				<c:when test="${totalRestAmount > 0}">
        					<th class="columnHeader" colspan="6"><b>Total Rest Amount (Rwf)</b></th> <th class="columnHeader" align="right"><b>${totalRestAmount}</b></th><th class="columnHeader"></th><th class="columnHeader"></th>	
     				</c:when>    
     			    <c:otherwise>
                       <th class="columnHeader" colspan="6"><b>Total Rest Amount (Rwf)</b></th> <th class="columnHeader" align="right"><b>No Rest Amount</b></th><th class="columnHeader"></th><th class="columnHeader"></th>	
     				</c:otherwise>
-			</c:choose>							
+			</c:choose>	 --%>						
 		</tr>
 		
 	</table>
